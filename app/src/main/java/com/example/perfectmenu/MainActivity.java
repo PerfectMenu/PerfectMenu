@@ -14,11 +14,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import android.content.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     PackageManager myPackageManager;
     Activity act = this;
+    int temp = 0;
     public class MyBaseAdapter extends BaseAdapter {
         private Context myContext;
         private List<ResolveInfo> MyAppList;
@@ -68,21 +71,6 @@ public class MainActivity extends AppCompatActivity {
             });
 
             return convertView;
-            /*ImageView imageView;
-            if(convertView == null){
-                //not recycled -> initialize
-                imageView = new ImageView(myContext);
-                imageView.setLayoutParams(new GridView.LayoutParams(80, 80));
-                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                imageView.setPadding(8,8,8,8);
-            }
-            else{
-                imageView = (ImageView)convertView;
-            }
-            ResolveInfo resolveInfo = MyAppList.get(position);
-            imageView.setImageDrawable(resolveInfo.loadIcon(myPackageManager));
-            return imageView;*/
-
         }
     }
     @Override
@@ -94,12 +82,23 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_MAIN, null);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
         List<ResolveInfo> intentList = getPackageManager().queryIntentActivities(intent, 0);
+        List<ResolveInfo> intentListPart = new ArrayList<ResolveInfo>();
+        intentListPart.addAll(intentList.subList(1,10));
 
         GridView gridview = (GridView) findViewById(R.id.gridview);
         assert gridview != null;
-        gridview.setAdapter(new MyBaseAdapter(this, intentList));
+        gridview.setAdapter(new MyBaseAdapter(this, intentListPart));
 
         gridview.setOnItemClickListener(myOnItemClickListener);
+
+        /*Button button = (Button) findViewById(R.id.button);
+        assert button != null;
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        })*/;
     }
 
     OnItemClickListener myOnItemClickListener = new OnItemClickListener() {
@@ -119,6 +118,21 @@ public class MainActivity extends AppCompatActivity {
     };
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event){
+        Intent intent = new Intent(Intent.ACTION_MAIN, null);
+        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+        List<ResolveInfo> intentList = getPackageManager().queryIntentActivities(intent, 0);
+        List<ResolveInfo> intentListPart = new ArrayList<ResolveInfo>();
+        intentListPart.addAll(intentList.subList(temp,min(temp+10,intentList.size())));
+        temp+=10;
+        if (temp>=intentList.size()) temp=0;
+
+        GridView gridview = (GridView) findViewById(R.id.gridview);
+        assert gridview != null;
+        gridview.setAdapter(new MyBaseAdapter(act, intentListPart));
         return false;
+    }
+
+    private int min(int i, int i1) {
+        return i<i1?i:i1;
     }
 }
