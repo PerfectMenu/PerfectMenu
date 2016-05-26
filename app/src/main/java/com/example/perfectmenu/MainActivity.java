@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     PackageManager myPackageManager;
     Activity act = this;
     int temp = 0, t = 0;
+    int N = 20;
     public class MyBaseAdapter extends BaseAdapter {
         private Context myContext;
         private List<ResolveInfo> MyAppList;
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
             TextView textView = (TextView) convertView.findViewById(R.id.textView);
             imageView.setImageDrawable(info.loadIcon(myPackageManager));
             textView.setText(info.loadLabel(myPackageManager).toString());
-            Log.v("[Program]", info.activityInfo.packageName+","+info.activityInfo.name);
+            //Log.v("[Program]", info.activityInfo.packageName+","+info.activityInfo.name);
 
             imageView.setOnClickListener(new Button.OnClickListener(){
                 @Override
@@ -92,22 +93,12 @@ public class MainActivity extends AppCompatActivity {
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
         List<ResolveInfo> intentList = getPackageManager().queryIntentActivities(intent, 0);
         List<ResolveInfo> intentListPart = new ArrayList<ResolveInfo>();
-        intentListPart.addAll(intentList.subList(1,10));
 
         GridView gridview = (GridView) findViewById(R.id.gridview);
         assert gridview != null;
-        gridview.setAdapter(new MyBaseAdapter(this, intentListPart));
+        gridview.setAdapter(new MyBaseAdapter(this, intentList));
 
         gridview.setOnItemClickListener(myOnItemClickListener);
-
-        /*Button button = (Button) findViewById(R.id.button);
-        assert button != null;
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        })*/;
     }
 
     OnItemClickListener myOnItemClickListener = new OnItemClickListener() {
@@ -131,8 +122,8 @@ public class MainActivity extends AppCompatActivity {
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
         List<ResolveInfo> intentList = getPackageManager().queryIntentActivities(intent, 0);
         List<ResolveInfo> intentListPart = new ArrayList<ResolveInfo>();
-        intentListPart.addAll(intentList.subList(temp,min(temp+10,intentList.size())));
-        temp+=10;
+        intentListPart.addAll(intentList.subList(temp,min(temp+N,intentList.size())));
+        temp+=N;
         if (temp>=intentList.size()) temp=0;
 
         GridView gridview = (GridView) findViewById(R.id.gridview);
