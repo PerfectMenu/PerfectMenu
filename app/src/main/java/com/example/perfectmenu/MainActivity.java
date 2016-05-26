@@ -21,7 +21,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     PackageManager myPackageManager;
     Activity act = this;
-    int temp = 0;
+    int temp = 0, t = 0;
     public class MyBaseAdapter extends BaseAdapter {
         private Context myContext;
         private List<ResolveInfo> MyAppList;
@@ -52,6 +52,15 @@ public class MainActivity extends AppCompatActivity {
             ImageView imageView = (ImageView) convertView.findViewById(R.id.imageView);
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setPadding(8,8,8,8);
+
+            if (t==0) {
+                t++;
+                ViewGroup.LayoutParams params = imageView.getLayoutParams();
+                params.height = 80;
+                params.width = 80;
+                imageView.setLayoutParams(params);
+            }
+
             TextView textView = (TextView) convertView.findViewById(R.id.textView);
             imageView.setImageDrawable(info.loadIcon(myPackageManager));
             textView.setText(info.loadLabel(myPackageManager).toString());
