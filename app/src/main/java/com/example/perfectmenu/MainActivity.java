@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.WindowManager;
 import android.widget.AdapterView.OnItemClickListener;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -55,12 +57,17 @@ public class MainActivity extends AppCompatActivity {
             imageView.setPadding(8,8,8,8);
 
             if (t==0) {
-                t++;
+                DisplayMetrics metrics = new DisplayMetrics();
+                WindowManager windowManager = (WindowManager) getApplicationContext()
+                        .getSystemService(Context.WINDOW_SERVICE);
+                windowManager.getDefaultDisplay().getMetrics(metrics);
                 ViewGroup.LayoutParams params = imageView.getLayoutParams();
-                params.height = 80;
-                params.width = 80;
+                params.height = metrics.widthPixels * 1 / 4 - 30;
+                params.width = metrics.widthPixels * 1 / 4 - 30;
                 imageView.setLayoutParams(params);
             }
+            t++;
+            if (t==N) t=0;
 
             TextView textView = (TextView) convertView.findViewById(R.id.textView);
             imageView.setImageDrawable(info.loadIcon(myPackageManager));
@@ -94,11 +101,11 @@ public class MainActivity extends AppCompatActivity {
         List<ResolveInfo> intentList = getPackageManager().queryIntentActivities(intent, 0);
         List<ResolveInfo> intentListPart = new ArrayList<ResolveInfo>();
 
-        GridView gridview = (GridView) findViewById(R.id.gridview);
+        /*GridView gridview = (GridView) findViewById(R.id.gridview);
         assert gridview != null;
         gridview.setAdapter(new MyBaseAdapter(this, intentList));
 
-        gridview.setOnItemClickListener(myOnItemClickListener);
+        gridview.setOnItemClickListener(myOnItemClickListener);*/
     }
 
     OnItemClickListener myOnItemClickListener = new OnItemClickListener() {
