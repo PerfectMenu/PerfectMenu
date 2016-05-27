@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.WindowManager;
 import android.widget.AdapterView.OnItemClickListener;
@@ -16,16 +17,67 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import android.content.*;
+import android.graphics.Color;
+import android.view.Gravity;
+import android.view.MotionEvent;
+import android.view.GestureDetector.OnGestureListener;
+import android.view.GestureDetector.SimpleOnGestureListener;
+import android.view.View.OnTouchListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnGestureListener, OnTouchListener {
     PackageManager myPackageManager;
     Activity act = this;
     int temp = 0, t = 0;
     int unitLength = 90;
     int N = 20;
+    private GestureDetector gestureDetector;
+    @Override
+    public boolean onTouchEvent(MotionEvent me) {
+        return gestureDetector.onTouchEvent(me);
+    }
+
+    @Override
+    public boolean onDown(MotionEvent e) {
+        //Toast.makeText(act,"Down",Toast.LENGTH_LONG).show();
+        return false;
+    }
+
+    @Override
+    public void onShowPress(MotionEvent e) {
+        Toast.makeText(act,"ShowPress",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public boolean onSingleTapUp(MotionEvent e) {
+        //Toast.makeText(act,"SingleTapUp",Toast.LENGTH_SHORT).show();
+        return false;
+    }
+
+    @Override
+    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+        //Toast.makeText(act,"Scroll",Toast.LENGTH_SHORT).show();
+        return false;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent e) {
+        Toast.makeText(act,"LongPress",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+        Toast.makeText(act,"Fling",Toast.LENGTH_SHORT).show();
+        return false;
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        return false;
+    }
+
     public class MyBaseAdapter extends BaseAdapter {
         private Context myContext;
         private List<ResolveInfo> MyAppList;
@@ -71,6 +123,24 @@ public class MainActivity extends AppCompatActivity {
             imageView.setLayoutParams(params);
             imageView.setMaxHeight(1000);
             imageView.setMaxWidth(1000);
+            /*imageView.setOnTouchListener(new OnSwipeTouchListener(act) {
+                public void onSwipeTop() {
+                    Toast.makeText(act, "top", Toast.LENGTH_SHORT).show();
+                }
+                public void onSwipeRight() {
+                    Toast.makeText(act, "right", Toast.LENGTH_SHORT).show();
+                }
+                public void onSwipeLeft() {
+                    Toast.makeText(act, "left", Toast.LENGTH_SHORT).show();
+                }
+                public void onSwipeBottom() {
+                    Toast.makeText(act, "bottom", Toast.LENGTH_SHORT).show();
+                }
+
+                public boolean onTouch(View v, MotionEvent event) {
+                    return gestureDetector.onTouchEvent(event);
+                }
+            }); */
 
             if (h==2) {
                 params.height = unitLength * h*2;
@@ -107,6 +177,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         myPackageManager = getPackageManager();
+        gestureDetector = new GestureDetector(this);
 
         Intent intent = new Intent(Intent.ACTION_MAIN, null);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
@@ -163,7 +234,6 @@ public class MainActivity extends AppCompatActivity {
         assert gridview10 != null;
         gridview10.setAdapter(new MyBaseAdapter(this, intentList.subList(9,10), 1, 1));
         gridview10.setOnItemClickListener(myOnItemClickListener);
-
         GridView gridview11 = (GridView) findViewById(R.id.gridview11);
         assert gridview11 != null;
         gridview11.setAdapter(new MyBaseAdapter(this, intentList.subList(10,11), 1, 1));
@@ -199,6 +269,28 @@ public class MainActivity extends AppCompatActivity {
         gridview17.setAdapter(new MyBaseAdapter(this, intentList.subList(16,17), 1, 1));
         gridview17.setOnItemClickListener(myOnItemClickListener);
     }
+
+    // GridView용 Scroll State Listener
+    AbsListView.OnScrollListener myOnScrollListener = new AbsListView.OnScrollListener() {
+        @Override
+        public void onScrollStateChanged(AbsListView view, int scrollState) {
+            switch (scrollState) {
+                case AbsListView.OnScrollListener.SCROLL_STATE_IDLE: // 스크롤이 정지되어 있는 상태야. 정지되어 있는 상태일 때 해야 할 일들을 써줘.
+                    break;
+                case AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL: // 스크롤이 터치되어 있을 때 상태고, 스크롤이 터치되어 있는 상태일 때 해야 할 일들을 써줘.
+                    break;
+                case AbsListView.OnScrollListener.SCROLL_STATE_FLING: // 이건 스크롤이 움직이고 있을때 상태야. 여기도 마찬가지.
+                    break;
+            }
+        }
+
+        @Override
+        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+            if (t>=32) Toast.makeText(act,"ScrollGridView",Toast.LENGTH_SHORT).show();
+            //System.out.println("scroll" + t);
+            t++;
+        }
+    };
 
     OnItemClickListener myOnItemClickListener = new OnItemClickListener() {
         @Override
