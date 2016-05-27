@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+    <android.support.v7.widget.Toolbar android:id="@+id/my_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="?attr/colorPrimary"
+    android:elevation="4dp"
+    android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"/>
+    <GridLayout
     android:id="@+id/gridlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,14 +25,16 @@
     android:layout_gravity="start"
     tools:context="com.example.perfectmenu.MainActivity"
     android:columnCount="6"
-    android:rowCount="5">
+    android:rowCount="9"
+    >
 
     <GridView
         android:id="@+id/gridview1"
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:layout_column="0"
-        android:layout_row="0">
+        android:layout_row="0"
+        android:layout_marginTop="10dp">
 
     </GridView>
     <GridView
@@ -27,7 +42,8 @@
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:layout_column="1"
-        android:layout_row="0">
+        android:layout_row="0"
+        android:layout_marginTop="10dp">
 
     </GridView>
 
@@ -36,14 +52,16 @@
         android:layout_column="2"
         android:layout_row="0"
         android:layout_width="90dp"
-        android:layout_height="90dp" />
+        android:layout_height="90dp"
+        android:layout_marginTop="10dp"/>
 
     <GridView
         android:id="@+id/gridview4"
         android:layout_column="3"
         android:layout_row="0"
         android:layout_width="90dp"
-        android:layout_height="90dp" />
+        android:layout_height="90dp"
+        android:layout_marginTop="10dp"/>
     <GridView
         android:id="@+id/gridview5"
         android:layout_column="0"
@@ -130,11 +148,12 @@
         android:layout_width="90dp"
         android:layout_height="90dp" />
 
-    <GridView
+        <GridView
         android:id="@+id/gridview17"
         android:layout_column="3"
         android:layout_row="4"
         android:layout_width="90dp"
         android:layout_height="90dp" />
 
-</GridLayout>
+    </GridLayout>
+</LinearLayout>

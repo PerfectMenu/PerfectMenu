@@ -9,10 +9,12 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     int temp = 0, t = 0;
     int unitLength = 90;
     GestureDetector gestureDetector;
-    int N = 20;
+    int N = 17;
     //List<WeakReference<View>> myRecycleList = new ArrayList<>();
     GridView gridview1, gridview2, gridview3, gridview4, gridview5, gridview6, gridview7,
             gridview8, gridview9, gridview10, gridview11, gridview12, gridview13, gridview14, gridview15, gridview16, gridview17;
@@ -128,9 +130,20 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch(item.getItemId()){
+            case R.id.setting_bars:
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
         myPackageManager = getPackageManager();
         gestureDetector = new GestureDetector(this, myOnGestureListner);
         Intent intent = new Intent(Intent.ACTION_MAIN, null);
@@ -245,6 +258,7 @@ public class MainActivity extends AppCompatActivity {
         }
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+            /*
             Intent intent = new Intent(Intent.ACTION_MAIN, null);
             intent.addCategory(Intent.CATEGORY_LAUNCHER);
             List<ResolveInfo> intentList = getPackageManager().queryIntentActivities(intent, 0);
@@ -256,7 +270,7 @@ public class MainActivity extends AppCompatActivity {
             }
             else if(diff < 0){
                 int t = max(temp-N, 0);
-                if(t != 0) {
+                if(t != 0) {//temp-N is bigger than 0
                     intentListPart.addAll(intentList.subList(t , t + N));
                     temp -= N;
                 }
@@ -267,7 +281,6 @@ public class MainActivity extends AppCompatActivity {
             }
             if (temp >= intentList.size() - 1) temp=0;
             if (temp <= 0) temp=0;
-            //hard coding
 
             gridview1.setAdapter(new MyBaseAdapter(act, intentListPart.subList(0, 1), 1, 1));
             gridview2.setAdapter(new MyBaseAdapter(act, intentListPart.subList(1, 2), 1, 1));
@@ -286,14 +299,52 @@ public class MainActivity extends AppCompatActivity {
             gridview15.setAdapter(new MyBaseAdapter(act, intentListPart.subList(14, 15), 1, 1));
             gridview16.setAdapter(new MyBaseAdapter(act, intentListPart.subList(15, 16), 1, 1));
             gridview17.setAdapter(new MyBaseAdapter(act, intentListPart.subList(16, 17), 1, 1));
-            return gestureDetector.onTouchEvent(e1);
+            return gestureDetector.onTouchEvent(e1);*/
+            return false;
         }
         @Override
         public void onLongPress(MotionEvent e) {
         }
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-            return false;
+            Intent intent = new Intent(Intent.ACTION_MAIN, null);
+            intent.addCategory(Intent.CATEGORY_LAUNCHER);
+            List<ResolveInfo> intentList = getPackageManager().queryIntentActivities(intent, 0);
+            List<ResolveInfo> intentListPart = new ArrayList<ResolveInfo>();
+            if (velocityX > 0) {
+                intentListPart.addAll(intentList.subList(temp, min(temp + N, intentList.size() - 1)));
+                temp += N;
+            } else if (velocityX < 0) {
+                int t = max(temp - N, 0);
+                if (t != 0) {//temp-N is bigger than 0
+                    intentListPart.addAll(intentList.subList(t, t + N));
+                    temp -= N;
+                } else {
+                    temp = intentList.size() - N - 1;
+                    intentListPart.addAll(intentList.subList(temp, temp + N));
+                }
+            }
+            if (temp >= intentList.size() - 1) temp = 0;
+            if (temp <= 0) temp = 0;
+            gridview1.setAdapter(new MyBaseAdapter(act, intentListPart.subList(0, 1), 1, 1));
+            gridview2.setAdapter(new MyBaseAdapter(act, intentListPart.subList(1, 2), 1, 1));
+            gridview3.setAdapter(new MyBaseAdapter(act, intentListPart.subList(2, 3), 1, 1));
+            gridview4.setAdapter(new MyBaseAdapter(act, intentListPart.subList(3, 4), 1, 1));
+            gridview5.setAdapter(new MyBaseAdapter(act, intentListPart.subList(4, 5), 1, 1));
+            gridview6.setAdapter(new MyBaseAdapter(act, intentListPart.subList(5, 6), 2, 2));
+            gridview7.setAdapter(new MyBaseAdapter(act, intentListPart.subList(6, 7), 1, 1));
+            gridview8.setAdapter(new MyBaseAdapter(act, intentListPart.subList(7, 8), 1, 1));
+            gridview9.setAdapter(new MyBaseAdapter(act, intentListPart.subList(8, 9), 1, 1));
+            gridview10.setAdapter(new MyBaseAdapter(act, intentListPart.subList(9, 10), 1, 1));
+            gridview11.setAdapter(new MyBaseAdapter(act, intentListPart.subList(10, 11), 1, 1));
+            gridview12.setAdapter(new MyBaseAdapter(act, intentListPart.subList(11, 12), 1, 1));
+            gridview13.setAdapter(new MyBaseAdapter(act, intentListPart.subList(12, 13), 1, 1));
+            gridview14.setAdapter(new MyBaseAdapter(act, intentListPart.subList(13, 14), 1, 1));
+            gridview15.setAdapter(new MyBaseAdapter(act, intentListPart.subList(14, 15), 1, 1));
+            gridview16.setAdapter(new MyBaseAdapter(act, intentListPart.subList(15, 16), 1, 1));
+            gridview17.setAdapter(new MyBaseAdapter(act, intentListPart.subList(16, 17), 1, 1));
+            return gestureDetector.onTouchEvent(e1);
+            //return false;
         }
     };
     OnItemClickListener myOnItemClickListener = new OnItemClickListener() {
