@@ -1,20 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical">
-    <android.support.v7.widget.Toolbar android:id="@+id/my_toolbar"
-    android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize"
-    android:background="?attr/colorPrimary"
-    android:elevation="4dp"
-    android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-    app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"/>
-    <GridLayout
-    android:id="@+id/gridlayout"
+<GridLayout android:id="@+id/gridlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:numColumns="4"
@@ -26,7 +11,8 @@
     tools:context="com.example.perfectmenu.MainActivity"
     android:columnCount="6"
     android:rowCount="9"
-    >
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <GridView
         android:id="@+id/gridview1"
@@ -147,13 +133,10 @@
         android:layout_row="4"
         android:layout_width="90dp"
         android:layout_height="90dp" />
-
-        <GridView
+    <GridView
         android:id="@+id/gridview17"
         android:layout_column="3"
         android:layout_row="4"
         android:layout_width="90dp"
         android:layout_height="90dp" />
-
-    </GridLayout>
-</LinearLayout>
+</GridLayout>

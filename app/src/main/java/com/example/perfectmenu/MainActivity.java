@@ -14,6 +14,7 @@ import android.util.DisplayMetrics;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -130,20 +131,34 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.action_bar, menu);
+        return true;
+    }
+    @Override
     public boolean onOptionsItemSelected(MenuItem item){
-        switch(item.getItemId()){
-            case R.id.setting_bars:
-                return true;
+        String text = null;
+        switch (item.getItemId()) {
+            case R.id.item1:
+                Intent intent = new Intent(getApplicationContext(), AppPrioritySettings.class);
+                startActivity(intent);
+                break;
+            case R.id.item2:
+                text = "B";
+                break;
+            case R.id.item3:
+                text = "C";
+                break;
             default:
-                return super.onOptionsItemSelected(item);
+                return false;
         }
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+        return true;
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        setSupportActionBar(myToolbar);
         myPackageManager = getPackageManager();
         gestureDetector = new GestureDetector(this, myOnGestureListner);
         Intent intent = new Intent(Intent.ACTION_MAIN, null);
