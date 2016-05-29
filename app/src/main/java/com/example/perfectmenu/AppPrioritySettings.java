@@ -28,6 +28,8 @@ public class AppPrioritySettings extends AppCompatActivity{
     LayoutInflater inflater;
     List<ResolveInfo> myInfo;
     Activity act = this;
+    NumberPicker numberPicker = null;
+
     public class SettingBaseAdapter extends BaseAdapter {
         SettingBaseAdapter(List<ResolveInfo> I) {
             myInfo = I;
@@ -47,7 +49,6 @@ public class AppPrioritySettings extends AppCompatActivity{
         }
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            System.out.println (position + " " + (convertView));
             if(convertView == null) {
                 convertView = inflater.inflate(R.layout.application_priority, parent, false);
             }
@@ -59,13 +60,14 @@ public class AppPrioritySettings extends AppCompatActivity{
             imageView.setImageDrawable(item.loadIcon(myPackageManager));
             textView.setText(item.loadLabel(myPackageManager).toString());
             NumberPicker numberPicker = (NumberPicker) convertView.findViewById(R.id.app_priority);
-            numberPicker.setOnScrollListener(new NumberPicker.OnScrollListener() {
+            numberPicker.setMinValue(0);
+            numberPicker.setMaxValue(5);
+            numberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+            numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
                 @Override
-                public void onScrollStateChange(NumberPicker view, int scrollState) {
-                    view.setValue(scrollState);
+                public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 }
-            }
-            );
+            });
             return convertView;
         }
     }

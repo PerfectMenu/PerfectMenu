@@ -8,6 +8,7 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
+import android.os.ResultReceiver;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
@@ -30,7 +31,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
+import java.text.Collator;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -57,15 +61,6 @@ public class MainActivity extends AppCompatActivity {
             h = _h;
             inflater = (LayoutInflater) act.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
-        /*private int recycleHalf(){
-            int halfSize = myRecycleList.size() / 2;
-            List <WeakReference<View>> recycleHalfList = myRecycleList.subList(0, halfSize);
-            for(WeakReference<View> ref: myRecycleList){
-            RecycleUtils.recursiveRecycle(recycleHalfList);
-            for(int i = 0; i < halfSize; i ++){
-                myRecycleList.remove(0);
-            }
-        }*/
         @Override
         public int getCount(){
             return MyAppList.size();
@@ -157,6 +152,16 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
         return true;
     }
+
+    public final Comparator<ResolveInfo> COMPARATOR = new Comparator<ResolveInfo>() {
+        private final Collator sCollator = Collator.getInstance();
+        @Override
+        public int compare(ResolveInfo lhs, ResolveInfo rhs) {
+            return lhs.loadLabel(myPackageManager).toString().compareTo(rhs.loadLabel(myPackageManager).toString());
+        }
+
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -166,6 +171,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_MAIN, null);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
         intentList = getPackageManager().queryIntentActivities(intent, 0);
+        Collections.sort(intentList, COMPARATOR);
+
 
         gridview1 = (GridView) findViewById(R.id.gridview1);
         assert gridview1 != null;
