@@ -143,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.item1:
                 Intent intent = new Intent(getApplicationContext(), AppPrioritySettings.class);
                 startActivity(intent);
+                text = "A";
                 break;
             case R.id.item2:
                 text = "B";

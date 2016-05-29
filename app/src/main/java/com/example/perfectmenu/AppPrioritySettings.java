@@ -25,13 +25,11 @@ import java.util.List;
  */
 public class AppPrioritySettings extends AppCompatActivity{
     PackageManager myPackageManager;
-    Context myContext;
     LayoutInflater inflater;
     List<ResolveInfo> myInfo;
     Activity act = this;
     public class SettingBaseAdapter extends BaseAdapter {
-        SettingBaseAdapter(Context c, List<ResolveInfo> I) {
-            myContext = c;
+        SettingBaseAdapter(List<ResolveInfo> I) {
             myInfo = I;
             inflater = (LayoutInflater) act.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
@@ -49,6 +47,7 @@ public class AppPrioritySettings extends AppCompatActivity{
         }
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
+            System.out.println (position + " " + (convertView));
             if(convertView == null) {
                 convertView = inflater.inflate(R.layout.application_priority, parent, false);
             }
@@ -59,11 +58,11 @@ public class AppPrioritySettings extends AppCompatActivity{
             TextView textView = (TextView) convertView.findViewById(R.id.app_name);
             imageView.setImageDrawable(item.loadIcon(myPackageManager));
             textView.setText(item.loadLabel(myPackageManager).toString());
-            final NumberPicker numberPicker = (NumberPicker) convertView.findViewById(R.id.app_priority);
+            NumberPicker numberPicker = (NumberPicker) convertView.findViewById(R.id.app_priority);
             numberPicker.setOnScrollListener(new NumberPicker.OnScrollListener() {
                 @Override
                 public void onScrollStateChange(NumberPicker view, int scrollState) {
-                    numberPicker.setValue(scrollState);
+                    view.setValue(scrollState);
                 }
             }
             );
@@ -77,12 +76,12 @@ public class AppPrioritySettings extends AppCompatActivity{
         setContentView(R.layout.application_list);
         myPackageManager = getPackageManager();
         Intent intent = new Intent(Intent.ACTION_MAIN,null);
-        intent.addCategory(Intent.CATEGORY_APP_BROWSER);
+        intent.addCategory(Intent.CATEGORY_LAUNCHER);
         List<ResolveInfo> intentList = getPackageManager().queryIntentActivities(intent, 0);
-        ListView listview = (ListView) findViewById(R.id.listView);
-        assert listview != null;
-        listview.setAdapter(new SettingBaseAdapter(this, intentList));
-        listview.setOnItemClickListener(myOnItemClickListener);
+        ListView listView = (ListView) findViewById(R.id.listView);
+        assert listView != null;
+        listView.setAdapter(new SettingBaseAdapter(intentList));
+        listView.setOnItemClickListener(myOnItemClickListener);
     }
     /*@Override
     protected void onDestroy(){
