@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     int unitLength = 150;
     GestureDetector gestureDetector;
     List<ResolveInfo> intentList;
+    List<AppInfo> infoList = null;
     int N = 17;
     //List<WeakReference<View>> myRecycleList = new ArrayList<>();
     GridView gridview1, gridview2, gridview3, gridview4, gridview5, gridview6, gridview7,
@@ -153,14 +154,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    public final Comparator<ResolveInfo> COMPARATOR = new Comparator<ResolveInfo>() {
-        private final Collator sCollator = Collator.getInstance();
-        @Override
-        public int compare(ResolveInfo lhs, ResolveInfo rhs) {
-            return lhs.loadLabel(myPackageManager).toString().compareTo(rhs.loadLabel(myPackageManager).toString());
-        }
 
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -171,7 +165,19 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_MAIN, null);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
         intentList = getPackageManager().queryIntentActivities(intent, 0);
-        Collections.sort(intentList, COMPARATOR);
+        if (intentList.size()==0){
+            int t= 1;
+            t=t*5+1;
+        }
+        infoList=new ArrayList<AppInfo>();
+        for (int i=0;i<intentList.size();i++){
+            infoList.add(new AppInfo(intentList.get(i),intentList.get(i).loadLabel(myPackageManager).toString(),0));
+        }
+        Collections.sort(infoList, AppInfo.COMPARATOR);
+        intentList = new ArrayList<ResolveInfo>();
+        for (int i=0;i<infoList.size();i++){
+            intentList.add(infoList.get(i).info);
+        }
 
 
         gridview1 = (GridView) findViewById(R.id.gridview1);
@@ -280,48 +286,6 @@ public class MainActivity extends AppCompatActivity {
         }
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-            /*
-            Intent intent = new Intent(Intent.ACTION_MAIN, null);
-            intent.addCategory(Intent.CATEGORY_LAUNCHER);
-            List<ResolveInfo> intentList = getPackageManager().queryIntentActivities(intent, 0);
-            List<ResolveInfo> intentListPart = new ArrayList<ResolveInfo>();
-            float diff = e1.getX() - e2.getX();
-            if(diff > 0) {
-                intentListPart.addAll(intentList.subList(temp,min(temp+N,intentList.size() - 1)));
-                temp += N;
-            }
-            else if(diff < 0){
-                int t = max(temp-N, 0);
-                if(t != 0) {//temp-N is bigger than 0
-                    intentListPart.addAll(intentList.subList(t , t + N));
-                    temp -= N;
-                }
-                else{
-                    temp = intentList.size() - N - 1;
-                    intentListPart.addAll(intentList.subList(temp, temp + N));
-                }
-            }
-            if (temp >= intentList.size() - 1) temp=0;
-            if (temp <= 0) temp=0;
-
-            gridview1.setAdapter(new MyBaseAdapter(act, intentListPart.subList(0, 1), 1, 1));
-            gridview2.setAdapter(new MyBaseAdapter(act, intentListPart.subList(1, 2), 1, 1));
-            gridview3.setAdapter(new MyBaseAdapter(act, intentListPart.subList(2, 3), 1, 1));
-            gridview4.setAdapter(new MyBaseAdapter(act, intentListPart.subList(3, 4), 1, 1));
-            gridview5.setAdapter(new MyBaseAdapter(act, intentListPart.subList(4, 5), 1, 1));
-            gridview6.setAdapter(new MyBaseAdapter(act, intentListPart.subList(5, 6), 2, 2));
-            gridview7.setAdapter(new MyBaseAdapter(act, intentListPart.subList(6, 7), 1, 1));
-            gridview8.setAdapter(new MyBaseAdapter(act, intentListPart.subList(7, 8), 1, 1));
-            gridview9.setAdapter(new MyBaseAdapter(act, intentListPart.subList(8, 9), 1, 1));
-            gridview10.setAdapter(new MyBaseAdapter(act, intentListPart.subList(9, 10), 1, 1));
-            gridview11.setAdapter(new MyBaseAdapter(act, intentListPart.subList(10, 11), 1, 1));
-            gridview12.setAdapter(new MyBaseAdapter(act, intentListPart.subList(11, 12), 1, 1));
-            gridview13.setAdapter(new MyBaseAdapter(act, intentListPart.subList(12, 13), 1, 1));
-            gridview14.setAdapter(new MyBaseAdapter(act, intentListPart.subList(13, 14), 1, 1));
-            gridview15.setAdapter(new MyBaseAdapter(act, intentListPart.subList(14, 15), 1, 1));
-            gridview16.setAdapter(new MyBaseAdapter(act, intentListPart.subList(15, 16), 1, 1));
-            gridview17.setAdapter(new MyBaseAdapter(act, intentListPart.subList(16, 17), 1, 1));
-            return gestureDetector.onTouchEvent(e1);*/
             return false;
         }
         @Override
@@ -332,24 +296,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(Intent.ACTION_MAIN, null);
             intent.addCategory(Intent.CATEGORY_LAUNCHER);
             List<ResolveInfo> intentListPart = new ArrayList<ResolveInfo>();
-            /* Version 1: menu page is always full */
-            /*------------------------------------------------------------------------------------------------*/
-            /*if (velocityX > 0) {
-                intentListPart.addAll(intentList.subList(temp, min(temp + N, intentList.size() - 1)));
-                temp += N;
-            } else if (velocityX < 0) {
-                int t = max(temp - N, 0);
-                if (t != 0) {//temp-N is bigger than 0
-                    intentListPart.addAll(intentList.subList(t, t + N));
-                    temp -= N;
-                } else {
-                    temp = intentList.size() - N - 1;
-                    intentListPart.addAll(intentList.subList(temp, temp + N));
-                }
-            }
-            if (temp >= intentList.size() - 1) temp = 0;
-            if (temp <= 0) temp = 0;*/
-            /* Version 2: same page always show same apps */
+            /* same page always show same apps */
             /*------------------------------------------------------------------------------------------------*/
             if (velocityX > 0) {
                 temp -= N;
