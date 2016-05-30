@@ -19,8 +19,8 @@
             </intent-filter>
         </activity>
         <!-- Named child activity as ChildActivity -->
-        <activity android:name=".AppPrioritySettings">
-        </activity>
+        <activity android:name=".AppPrioritySettings"/>
+        <activity android:name=".ClassifyRecommendation"/>
     </application>
 
 </manifest>

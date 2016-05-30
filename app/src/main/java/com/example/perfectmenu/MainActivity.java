@@ -144,12 +144,12 @@ public class MainActivity extends AppCompatActivity {
         String text = null;
         switch (item.getItemId()) {
             case R.id.item1:
-                Intent intent = new Intent(getApplicationContext(), AppPrioritySettings.class);
-                startActivity(intent);
-                text = "A";
+                Intent intent1 = new Intent(getApplicationContext(), AppPrioritySettings.class);
+                startActivity(intent1);
                 break;
             case R.id.item2:
-                text = "B";
+                Intent intent2 = new Intent(getApplicationContext(), ClassifyRecommendation.class);
+                startActivity(intent2);
                 break;
             case R.id.item3:
                 text = "C";
