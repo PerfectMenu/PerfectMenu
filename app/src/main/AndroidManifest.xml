@@ -11,15 +11,18 @@
         >
 
         <activity android:name=".MainActivity">
+
+        </activity>
+        <!-- Named child activity as ChildActivity -->
+        <activity android:name=".AppPrioritySettings">
+        </activity>
+        <activity android:name=".top_activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER"/>
                 <category android:name="android.intent.category.HOME"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
-        </activity>
-        <!-- Named child activity as ChildActivity -->
-        <activity android:name=".AppPrioritySettings">
         </activity>
     </application>
 
