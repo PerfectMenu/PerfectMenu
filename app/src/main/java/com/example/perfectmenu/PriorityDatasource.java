@@ -29,7 +29,7 @@ public class PriorityDatasource {
         dbHelper.close();
     }
 
-    public Info createInfo(String name, long priority){
+    public Info createInfo(String name, int priority){
         Cursor cursor = null;
         try{
             ContentValues values = new ContentValues();
@@ -49,6 +49,15 @@ public class PriorityDatasource {
         long id = info.getId();
         database.delete(MySQLiteHelper.TABLE_INFOS, MySQLiteHelper.COLUMN_ID + " = " + id, null);
     }
+
+    public void deleteById(long id){
+        database.delete(MySQLiteHelper.TABLE_INFOS, MySQLiteHelper.COLUMN_ID + " = " + id, null);
+    }
+
+    public int deleteAllInfos(){
+        return database.delete(MySQLiteHelper.TABLE_INFOS, null, null);
+    }
+
 
     public List<Info> getAllInfos(){
         List<Info> infos = new ArrayList<Info>();
@@ -83,7 +92,7 @@ public class PriorityDatasource {
         int priorityIndex = cursor.getColumnIndex(MySQLiteHelper.COLUMN_PRIORITY);
         info.setId(cursor.getLong(idIndex));
         info.setName(cursor.getString(nameIndex));
-        info.setPriority(cursor.getLong(priorityIndex));
+        info.setPriority(cursor.getInt(priorityIndex));
         return info;
     }
 }

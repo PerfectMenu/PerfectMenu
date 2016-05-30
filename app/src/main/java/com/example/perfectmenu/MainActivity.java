@@ -46,9 +46,16 @@ public class MainActivity extends AppCompatActivity {
     List<ResolveInfo> intentList;
     List<AppInfo> infoList = null;
     int N = 17;
+
+    //private AppPrioritySettings priorityDB;
+
     //List<WeakReference<View>> myRecycleList = new ArrayList<>();
     GridView gridview1, gridview2, gridview3, gridview4, gridview5, gridview6, gridview7,
             gridview8, gridview9, gridview10, gridview11, gridview12, gridview13, gridview14, gridview15, gridview16, gridview17;
+
+    GridView[] gridview = {gridview6,gridview12,gridview11,gridview7,gridview15,gridview9,gridview13,gridview16,gridview17,gridview14,gridview10,gridview8,gridview4,gridview3,gridview5,gridview2,gridview1};
+    int[] idx = {6,12,11,7,15,9,13,16,17,14,10,8,4,3,5,2,1};
+
     public class MyBaseAdapter extends BaseAdapter {
         private Context myContext;
         private List<ResolveInfo> MyAppList;
@@ -164,13 +171,13 @@ public class MainActivity extends AppCompatActivity {
         gestureDetector = new GestureDetector(this, myOnGestureListener);
         Intent intent = new Intent(Intent.ACTION_MAIN, null);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
+
+
         intentList = getPackageManager().queryIntentActivities(intent, 0);
-        if (intentList.size()==0){
-            int t= 1;
-            t=t*5+1;
-        }
+        //List<Info> pl = AppPrioritySettings.getPriorityDB();
         infoList=new ArrayList<AppInfo>();
         for (int i=0;i<intentList.size();i++){
+            //infoList.add(new AppInfo(intentList.get(i),intentList.get(i).loadLabel(myPackageManager).toString(),pl.get(i).getPriority()));
             infoList.add(new AppInfo(intentList.get(i),intentList.get(i).loadLabel(myPackageManager).toString(),0));
         }
         Collections.sort(infoList, AppInfo.COMPARATOR);

@@ -6,7 +6,7 @@ package com.example.perfectmenu;
 public class Info {
     private long id;
     private String name;
-    private long priority;
+    private int priority;
 
     public long getId(){
         return id;
@@ -24,11 +24,11 @@ public class Info {
         this.name = name;
     }
 
-    public long getPriority(){
+    public int getPriority(){
         return priority;
     }
 
-    public void setPriority(long priority){
+    public void setPriority(int priority){
         this.priority=priority;
     }
 
