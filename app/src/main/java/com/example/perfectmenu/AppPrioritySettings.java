@@ -1,6 +1,7 @@
 package com.example.perfectmenu;
 
 import android.app.Activity;
+import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -12,7 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.NumberPicker;
@@ -24,6 +27,10 @@ import java.util.List;
  * Created by 유정 on 2016-05-28.
  */
 public class AppPrioritySettings extends AppCompatActivity{
+    final public static String TAG = "Database";
+    private PriorityDatasource datasource;
+    //private EditText mInfoET;
+
     PackageManager myPackageManager;
     LayoutInflater inflater;
     List<ResolveInfo> myInfo;
@@ -63,11 +70,6 @@ public class AppPrioritySettings extends AppCompatActivity{
             numberPicker.setMinValue(0);
             numberPicker.setMaxValue(5);
             numberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
-            numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-                @Override
-                public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                }
-            });
             return convertView;
         }
     }
@@ -83,19 +85,40 @@ public class AppPrioritySettings extends AppCompatActivity{
         ListView listView = (ListView) findViewById(R.id.listView);
         assert listView != null;
         listView.setAdapter(new SettingBaseAdapter(intentList));
-        listView.setOnItemClickListener(myOnItemClickListener);
+        //listView.setOnItemClickListener(myOnItemClickListener);
+
+        List<Info> values = datasource.getAllInfos();
+        datasource = new PriorityDatasource(this);
+        datasource.open();
+        //List<Info> infos = datasource.getAllInfos();
+        //ArrayAdapter<Info> adapter = new ArrayAdapter<Info>(this, android.R.layout.simple_list_item_1, values);
+
+        //setListAdapter(adapter);
+
+        //mInfoET = (EditText)findViewById(R.id.editText);
+
     }
+    @Override
+    protected void onResume(){
+        datasource.open();
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause(){
+        datasource.close();
+        super.onPause();
+    }
+
     /*@Override
-    protected void onDestroy(){
-        RecycleUtils.recursiveRecycle(myRecycleList);
-        System.gc();
-        super.onDestroy();
+    protected void onListItemClick(ListView l, View v, int position, long id){
+        super.onListItemClick(l, v, position, id);
+        ArrayAdapter<Info> adapter = (ArrayAdapter<Info>) getListAdapter();
+        Info info = adapter.getItem(position);
+        datasource.deleteInfo(info);
+        adapter.remove(info);
+        adapter.notifyDataSetChanged();
     }*/
-    AdapterView.OnItemClickListener myOnItemClickListener = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        }
-    };
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event){
         finish();
