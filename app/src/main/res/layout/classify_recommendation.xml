@@ -10,6 +10,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp"
     >
 
         <ImageButton
@@ -22,10 +24,10 @@
             android:onClick="myOnClick"/>
 
         <android.support.v4.view.ViewPager
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="232dp"
+            android:layout_height="358dp"
             android:id="@+id/recommend_pager"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center" />
 
         <ImageButton
             android:layout_width="wrap_content"

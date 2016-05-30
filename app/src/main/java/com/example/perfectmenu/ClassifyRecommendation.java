@@ -31,7 +31,7 @@ public class ClassifyRecommendation extends AppCompatActivity {
             view = inflater.inflate(R.layout.select_layout, null);
 
             ImageView img = (ImageView)view.findViewById(R.id.layout_image);
-            img.setImageResource(R.drawable.screen1 + position);
+            img.setImageResource(R.mipmap.screen1);// + position);
             container.addView(view);
             return view;
         }
@@ -68,7 +68,6 @@ public class ClassifyRecommendation extends AppCompatActivity {
         setContentView(R.layout.classify_recommendation);
         myViewPager = (ViewPager)findViewById(R.id.recommend_pager);
         //Button button = (Button)findViewById(R.id.select);
-        setContentView(myViewPager);
         //setContentView(button);
         MyPagerAdapter adapter = new MyPagerAdapter(getLayoutInflater());
         myViewPager.setAdapter(adapter);
