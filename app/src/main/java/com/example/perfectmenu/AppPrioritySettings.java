@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -35,6 +36,7 @@ public class AppPrioritySettings extends AppCompatActivity{
     PackageManager myPackageManager;
     LayoutInflater inflater;
     List<ResolveInfo> myInfo;
+    List<ResolveInfo> intentList = null;
     Activity act = this;
     List<Integer> priorityList;
     NumberPicker numberPicker = null;
@@ -98,11 +100,12 @@ public class AppPrioritySettings extends AppCompatActivity{
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
         Intent intent1 = getIntent();
 
-        List<ResolveInfo> intentList = getPackageManager().queryIntentActivities(intent, 0);
+        intentList = getPackageManager().queryIntentActivities(intent, 0);
         List<Integer> pL = new ArrayList<Integer>();
         List<Info> values = (List<Info>)intent1.getSerializableExtra("infoList");
         ListView listView = (ListView) findViewById(R.id.listView);
         assert listView != null;
+        Collections.sort(values, Info.NAMECOMPARATOR);
         for (Info info : values) pL.add(0);
         for (Info info : values){
             int t=-1;

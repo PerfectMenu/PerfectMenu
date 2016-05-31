@@ -1,6 +1,8 @@
 package com.example.perfectmenu;
 
 import java.io.Serializable;
+import java.text.Collator;
+import java.util.Comparator;
 
 /**
  * Created by dkflf on 2016-05-30.
@@ -46,4 +48,12 @@ public class Info implements Serializable{
     public String toString(){
         return String.format("%s%d", name, priority);
     }
+
+    public static final Comparator<Info> NAMECOMPARATOR = new Comparator<Info>() {
+        private final Collator sCollator = Collator.getInstance();
+        @Override
+        public int compare(Info lhs, Info rhs) {
+            return lhs.name.compareTo(rhs.name);
+        }
+    };
 }

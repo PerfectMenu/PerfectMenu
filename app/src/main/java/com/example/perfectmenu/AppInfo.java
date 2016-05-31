@@ -36,4 +36,12 @@ public class AppInfo {
             return lhs.appName.compareTo(rhs.appName);
         }
     };
+
+    public static final Comparator<AppInfo> NAMECOMPARATOR = new Comparator<AppInfo>() {
+        private final Collator sCollator = Collator.getInstance();
+        @Override
+        public int compare(AppInfo lhs, AppInfo rhs) {
+            return lhs.appName.compareTo(rhs.appName);
+        }
+    };
 }
