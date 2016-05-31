@@ -8,9 +8,7 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
-import android.os.ResultReceiver;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
@@ -31,14 +29,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.Serializable;
-import java.lang.ref.WeakReference;
-import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MenuActivity2 extends AppCompatActivity {
     PackageManager myPackageManager;
     Activity act = this;
     int temp = 0, t = 0;
@@ -47,23 +42,22 @@ public class MainActivity extends AppCompatActivity {
     List<ResolveInfo> intentList;
     List<AppInfo> infoList = null;
     List<Info> priorityInfo;
-    int N = 17;
+    int N = 16;
 
     //private AppPrioritySettings priorityDB;
 
     //List<WeakReference<View>> myRecycleList = new ArrayList<>();
     GridView gridview1, gridview2, gridview3, gridview4, gridview5, gridview6, gridview7,
-            gridview8, gridview9, gridview10, gridview11, gridview12, gridview13, gridview14, gridview15, gridview16, gridview17;
+            gridview8, gridview9, gridview10, gridview11, gridview12, gridview13, gridview14, gridview15, gridview16;
 
-    GridView[] gridview = {gridview6,gridview12,gridview11,gridview7,gridview15,gridview9,gridview13,gridview16,gridview17,gridview14,gridview10,gridview8,gridview4,gridview3,gridview5,gridview2,gridview1};
-    int[] idx = {6,12,11,7,15,9,13,16,17,14,10,8,4,3,5,2,1};
+    GridView[] gridview = new GridView[]{gridview9,gridview12,gridview7,gridview6,gridview5,gridview10,gridview15,gridview13,gridview16,gridview14,gridview11,gridview8,gridview3,gridview4,gridview2,gridview1};
+    int[] size = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
 
     public class MyBaseAdapter extends BaseAdapter {
         private Context myContext;
         private List<ResolveInfo> MyAppList;
         private int w, h;
         LayoutInflater inflater;
-        private List<WeakReference<View>> myRecycleList;
         MyBaseAdapter (Context c, List<ResolveInfo> I, int _w, int _h){
             myContext = c;
             MyAppList = I;
@@ -168,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_menu2);
         myPackageManager = getPackageManager();
         gestureDetector = new GestureDetector(this, myOnGestureListener);
         Intent intent = new Intent(Intent.ACTION_MAIN, null);
@@ -181,7 +175,6 @@ public class MainActivity extends AppCompatActivity {
         //List<Info> pl = AppPrioritySettings.getPriorityDB();
         infoList=new ArrayList<AppInfo>();
         for (ResolveInfo resolveInfo : intentList){
-            //infoList.add(new AppInfo(intentList.get(i),intentList.get(i).loadLabel(myPackageManager).toString(),pl.get(i).getPriority()));
             int pri = 0;
             for (Info info : priorityInfo){
                 if (info.getName().equals(resolveInfo.loadLabel(myPackageManager))) pri=info.getPriority();
@@ -195,90 +188,29 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        gridview1 = (GridView) findViewById(R.id.gridview1);
-        assert gridview1 != null;
-        gridview1.setAdapter(new MyBaseAdapter(this, intentList.subList(0,1), 1, 1));
-        gridview1.setOnItemClickListener(myOnItemClickListener);
+        gridview1 = (GridView) findViewById(R.id.gridview1); assert gridview1 != null;
+        gridview2 = (GridView) findViewById(R.id.gridview2); assert gridview2 != null;
+        gridview3 = (GridView) findViewById(R.id.gridview3); assert gridview3 != null;
+        gridview4 = (GridView) findViewById(R.id.gridview4); assert gridview4 != null;
+        gridview5 = (GridView) findViewById(R.id.gridview5); assert gridview5 != null;
+        gridview6 = (GridView) findViewById(R.id.gridview6); assert gridview6 != null;
+        gridview7 = (GridView) findViewById(R.id.gridview7); assert gridview7 != null;
+        gridview8 = (GridView) findViewById(R.id.gridview8); assert gridview8 != null;
+        gridview9 = (GridView) findViewById(R.id.gridview9); assert gridview9 != null;
+        gridview10 = (GridView) findViewById(R.id.gridview10); assert gridview10 != null;
+        gridview11 = (GridView) findViewById(R.id.gridview11); assert gridview11 != null;
+        gridview12 = (GridView) findViewById(R.id.gridview12); assert gridview12 != null;
+        gridview13 = (GridView) findViewById(R.id.gridview13); assert gridview13 != null;
+        gridview14 = (GridView) findViewById(R.id.gridview14); assert gridview14 != null;
+        gridview15 = (GridView) findViewById(R.id.gridview15); assert gridview15 != null;
+        gridview16 = (GridView) findViewById(R.id.gridview16); assert gridview16 != null;
 
-        gridview2 = (GridView) findViewById(R.id.gridview2);
-        assert gridview2 != null;
-        gridview2.setAdapter(new MyBaseAdapter(this, intentList.subList(1,2), 1, 1));
-        gridview2.setOnItemClickListener(myOnItemClickListener);
-
-        gridview3 = (GridView) findViewById(R.id.gridview3);
-        assert gridview3 != null;
-        gridview3.setAdapter(new MyBaseAdapter(this, intentList.subList(2,3), 1, 1));
-        gridview3.setOnItemClickListener(myOnItemClickListener);
-
-        gridview4 = (GridView) findViewById(R.id.gridview4);
-        assert gridview4 != null;
-        gridview4.setAdapter(new MyBaseAdapter(this, intentList.subList(3,4), 1, 1));
-        gridview4.setOnItemClickListener(myOnItemClickListener);
-
-        gridview5 = (GridView) findViewById(R.id.gridview5);
-        assert gridview5 != null;
-        gridview5.setAdapter(new MyBaseAdapter(this, intentList.subList(4,5), 1, 1));
-        gridview5.setOnItemClickListener(myOnItemClickListener);
-
-        gridview6 = (GridView) findViewById(R.id.gridview6);
-        assert gridview6 != null;
-        gridview6.setAdapter(new MyBaseAdapter(this, intentList.subList(5,6), 2, 2));
-        gridview6.setOnItemClickListener(myOnItemClickListener);
-
-        gridview7 = (GridView) findViewById(R.id.gridview7);
-        assert gridview7 != null;
-        gridview7.setAdapter(new MyBaseAdapter(this, intentList.subList(6,7), 1, 1));
-        gridview7.setOnItemClickListener(myOnItemClickListener);
-
-        gridview8 = (GridView) findViewById(R.id.gridview8);
-        assert gridview8 != null;
-        gridview8.setAdapter(new MyBaseAdapter(this, intentList.subList(7,8), 1, 1));
-        gridview8.setOnItemClickListener(myOnItemClickListener);
-
-        gridview9 = (GridView) findViewById(R.id.gridview9);
-        assert gridview9 != null;
-        gridview9.setAdapter(new MyBaseAdapter(this, intentList.subList(8,9), 1, 1));
-        gridview9.setOnItemClickListener(myOnItemClickListener);
-
-        gridview10 = (GridView) findViewById(R.id.gridview10);
-        assert gridview10 != null;
-        gridview10.setAdapter(new MyBaseAdapter(this, intentList.subList(9,10), 1, 1));
-        gridview10.setOnItemClickListener(myOnItemClickListener);
-
-        gridview11 = (GridView) findViewById(R.id.gridview11);
-        assert gridview11 != null;
-        gridview11.setAdapter(new MyBaseAdapter(this, intentList.subList(10,11), 1, 1));
-        gridview11.setOnItemClickListener(myOnItemClickListener);
-
-        gridview12 = (GridView) findViewById(R.id.gridview12);
-        assert gridview12 != null;
-        gridview12.setAdapter(new MyBaseAdapter(this, intentList.subList(11,12), 1, 1));
-        gridview12.setOnItemClickListener(myOnItemClickListener);
-
-        gridview13 = (GridView) findViewById(R.id.gridview13);
-        assert gridview13 != null;
-        gridview13.setAdapter(new MyBaseAdapter(this, intentList.subList(12,13), 1, 1));
-        gridview13.setOnItemClickListener(myOnItemClickListener);
-
-        gridview14 = (GridView) findViewById(R.id.gridview14);
-        assert gridview14 != null;
-        gridview14.setAdapter(new MyBaseAdapter(this, intentList.subList(13,14), 1, 1));
-        gridview14.setOnItemClickListener(myOnItemClickListener);
-
-        gridview15 = (GridView) findViewById(R.id.gridview15);
-        assert gridview15 != null;
-        gridview15.setAdapter(new MyBaseAdapter(this, intentList.subList(14,15), 1, 1));
-        gridview15.setOnItemClickListener(myOnItemClickListener);
-
-        gridview16 = (GridView) findViewById(R.id.gridview16);
-        assert gridview16 != null;
-        gridview16.setAdapter(new MyBaseAdapter(this, intentList.subList(15,16), 1, 1));
-        gridview16.setOnItemClickListener(myOnItemClickListener);
-
-        gridview17 = (GridView) findViewById(R.id.gridview17);
-        assert gridview17 != null;
-        gridview17.setAdapter(new MyBaseAdapter(this, intentList.subList(16,17), 1, 1));
-        gridview17.setOnItemClickListener(myOnItemClickListener);
+        GridView[] gridview = new GridView[]{gridview9,gridview12,gridview7,gridview6,gridview5,gridview10,gridview15,gridview13,gridview16,gridview14,gridview11,gridview8,gridview3,gridview4,gridview2,gridview1};
+        for (int i=0;i<N;i++){
+            if (i<=intentList.size()) gridview[i].setAdapter(new MyBaseAdapter(act, intentList.subList(i, i+1), size[i], size[i]));
+            else gridview[i].setAdapter(new MyBaseAdapter(act, new ArrayList<ResolveInfo>(), size[i], size[i]));
+            gridview[i].setOnItemClickListener(myOnItemClickListener);
+        }
     }
     /*@Override
     protected void onDestroy(){
@@ -322,40 +254,11 @@ public class MainActivity extends AppCompatActivity {
             if (temp <= 0) temp = 0; // 만약 환형 page 형식이라면 temp=(int)((intentList.size() - 1)/N) * N
             intentListPart.addAll(intentList.subList(temp, min(temp + N, intentList.size())));
             /*------------------------------------------------------------------------------------------------*/
-            if (intentListPart.size()>=1) gridview1.setAdapter(new MyBaseAdapter(act, intentListPart.subList(0, 1), 1, 1));
-            else gridview1.setAdapter(new MyBaseAdapter(act, new ArrayList<ResolveInfo>(), 1, 1));
-            if (intentListPart.size()>=2) gridview2.setAdapter(new MyBaseAdapter(act, intentListPart.subList(1, 2), 1, 1));
-            else gridview2.setAdapter(new MyBaseAdapter(act, new ArrayList<ResolveInfo>(), 1, 1));
-            if (intentListPart.size()>=3) gridview3.setAdapter(new MyBaseAdapter(act, intentListPart.subList(2, 3), 1, 1));
-            else gridview3.setAdapter(new MyBaseAdapter(act, new ArrayList<ResolveInfo>(), 1, 1));
-            if (intentListPart.size()>=4) gridview4.setAdapter(new MyBaseAdapter(act, intentListPart.subList(3, 4), 1, 1));
-            else gridview4.setAdapter(new MyBaseAdapter(act, new ArrayList<ResolveInfo>(), 1, 1));
-            if (intentListPart.size()>=5) gridview5.setAdapter(new MyBaseAdapter(act, intentListPart.subList(4, 5), 1, 1));
-            else gridview5.setAdapter(new MyBaseAdapter(act, new ArrayList<ResolveInfo>(), 1, 1));
-            if (intentListPart.size()>=6) gridview6.setAdapter(new MyBaseAdapter(act, intentListPart.subList(5, 6), 2, 2));
-            else gridview6.setAdapter(new MyBaseAdapter(act, new ArrayList<ResolveInfo>(), 1, 1));
-            if (intentListPart.size()>=7) gridview7.setAdapter(new MyBaseAdapter(act, intentListPart.subList(6, 7), 1, 1));
-            else gridview7.setAdapter(new MyBaseAdapter(act, new ArrayList<ResolveInfo>(), 1, 1));
-            if (intentListPart.size()>=8) gridview8.setAdapter(new MyBaseAdapter(act, intentListPart.subList(7, 8), 1, 1));
-            else gridview8.setAdapter(new MyBaseAdapter(act, new ArrayList<ResolveInfo>(), 1, 1));
-            if (intentListPart.size()>=9) gridview9.setAdapter(new MyBaseAdapter(act, intentListPart.subList(8, 9), 1, 1));
-            else gridview9.setAdapter(new MyBaseAdapter(act, new ArrayList<ResolveInfo>(), 1, 1));
-            if (intentListPart.size()>=10) gridview10.setAdapter(new MyBaseAdapter(act, intentListPart.subList(9, 10), 1, 1));
-            else gridview10.setAdapter(new MyBaseAdapter(act, new ArrayList<ResolveInfo>(), 1, 1));
-            if (intentListPart.size()>=11) gridview11.setAdapter(new MyBaseAdapter(act, intentListPart.subList(10, 11), 1, 1));
-            else gridview11.setAdapter(new MyBaseAdapter(act, new ArrayList<ResolveInfo>(), 1, 1));
-            if (intentListPart.size()>=12) gridview12.setAdapter(new MyBaseAdapter(act, intentListPart.subList(11, 12), 1, 1));
-            else gridview12.setAdapter(new MyBaseAdapter(act, new ArrayList<ResolveInfo>(), 1, 1));
-            if (intentListPart.size()>=13) gridview13.setAdapter(new MyBaseAdapter(act, intentListPart.subList(12, 13), 1, 1));
-            else gridview13.setAdapter(new MyBaseAdapter(act, new ArrayList<ResolveInfo>(), 1, 1));
-            if (intentListPart.size()>=14) gridview14.setAdapter(new MyBaseAdapter(act, intentListPart.subList(13, 14), 1, 1));
-            else gridview14.setAdapter(new MyBaseAdapter(act, new ArrayList<ResolveInfo>(), 1, 1));
-            if (intentListPart.size()>=15) gridview15.setAdapter(new MyBaseAdapter(act, intentListPart.subList(14, 15), 1, 1));
-            else gridview15.setAdapter(new MyBaseAdapter(act, new ArrayList<ResolveInfo>(), 1, 1));
-            if (intentListPart.size()>=16) gridview16.setAdapter(new MyBaseAdapter(act, intentListPart.subList(15, 16), 1, 1));
-            else gridview16.setAdapter(new MyBaseAdapter(act, new ArrayList<ResolveInfo>(), 1, 1));
-            if (intentListPart.size()>=17) gridview17.setAdapter(new MyBaseAdapter(act, intentListPart.subList(16, 17), 1, 1));
-            else gridview17.setAdapter(new MyBaseAdapter(act, new ArrayList<ResolveInfo>(), 1, 1));
+            GridView[] gridview = new GridView[]{gridview9,gridview12,gridview7,gridview6,gridview5,gridview10,gridview15,gridview13,gridview16,gridview14,gridview11,gridview8,gridview3,gridview4,gridview2,gridview1};
+            for (int i=0;i<N;i++){
+                if (i<intentListPart.size()) gridview[i].setAdapter(new MyBaseAdapter(act, intentListPart.subList(i, i+1), size[i], size[i]));
+                else gridview[i].setAdapter(new MyBaseAdapter(act, new ArrayList<ResolveInfo>(), size[i], size[i]));
+            }
 
             return gestureDetector.onTouchEvent(e1);
             //return false;

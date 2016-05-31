@@ -13,7 +13,7 @@ public class ClassifySQLiteHelper  extends SQLiteOpenHelper {
     public static final String COLUMN_CLASSIFY = "classify";
 
     private static final String DATABASE_NAME = "classify.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
 
     private static final String DATABASE_CREATE =
             "create table " + TABLE_CLASSIFY + " ( " + COLUMN_ID

@@ -26,16 +26,16 @@ public class ClassifyDatasource {
         dbHelper.close();
     }
 
-    public int createInfo(int classify){
+    public void createInfo(int classify){
         Cursor cursor = null;
         try{
             ContentValues values = new ContentValues();
             values.put(ClassifySQLiteHelper.COLUMN_CLASSIFY,classify);
             long insertId = database.insert(ClassifySQLiteHelper.TABLE_CLASSIFY, null, values);
+            System.out.println("Classify insertId = " + insertId);
             //지금 막 insert한 것을 다시 조회해 확인
             cursor = database.query(ClassifySQLiteHelper.TABLE_CLASSIFY, allColumns, ClassifySQLiteHelper.COLUMN_ID + " = " + insertId, null, null, null, null);
             cursor.moveToFirst();
-            return cursorToInteger(cursor);
         }finally{
             closeCursor(cursor);
         }
@@ -50,8 +50,11 @@ public class ClassifyDatasource {
         database.delete(ClassifySQLiteHelper.TABLE_CLASSIFY, ClassifySQLiteHelper.COLUMN_ID + " = " + id, null);
     }
 
-    public int deleteAllInfos(){
-        return database.delete(ClassifySQLiteHelper.TABLE_CLASSIFY, null, null);
+    public void deleteAllInfos(){
+        database.delete(ClassifySQLiteHelper.TABLE_CLASSIFY, null, null);
+
+        /*database.execSQL("DROP TABLE IF EXISTS " + ClassifySQLiteHelper.TABLE_CLASSIFY);
+        dbHelper.onCreate(database);*/
     }
 
 
@@ -59,7 +62,7 @@ public class ClassifyDatasource {
         Cursor cursor = null;
         try{
             cursor = database.query(ClassifySQLiteHelper.TABLE_CLASSIFY, allColumns, null, null, null, null, null);
-            cursor.moveToFirst();
+            cursor.moveToLast();
             return cursorToInteger(cursor);
         }finally{
             closeCursor(cursor);
@@ -76,6 +79,6 @@ public class ClassifyDatasource {
         }
     }
     private int cursorToInteger(Cursor cursor){
-        return cursor.getColumnIndex(ClassifySQLiteHelper.COLUMN_CLASSIFY);
+        return cursor.getInt(cursor.getColumnIndex(ClassifySQLiteHelper.COLUMN_CLASSIFY));
     }
 }

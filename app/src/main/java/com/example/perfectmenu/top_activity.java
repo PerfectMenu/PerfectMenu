@@ -39,13 +39,6 @@ public class top_activity extends AppCompatActivity{
                 priorityDS.createInfo(info.loadLabel(myPackageManager).toString(), 0);
             }
         }
-
-        int classify = classifyDS.getAllInfos();
-        if (classify == -1){
-            System.out.println("Reset classify DataBase");
-            classifyDS.deleteAllInfos();
-            classifyDS.createInfo(0);
-        }
     }
 
     @Override
@@ -66,35 +59,36 @@ public class top_activity extends AppCompatActivity{
         }
 
         /* Get Classify Recommendation */
-        int classify = (int) getIntent.getIntExtra("classifyRecommendation", 0);
+        int classify = (int) getIntent.getIntExtra("classifyRecommendation", -1);
+        System.out.println("Classify is " + classify);
         if (classify!=-1){
             classifyDS.deleteAllInfos();
             classifyDS.createInfo(classify);
         }
-        System.out.println("Classify is " + classify);
 
         int currentClassify = classifyDS.getAllInfos();
         System.out.println("Current Classify is " + currentClassify);
         Intent putIntent = null;
-        switch (classify){
+        switch (currentClassify){
             case 0:
-                putIntent = new Intent(top_activity.this, MainActivity.class);
+                putIntent = new Intent(top_activity.this, MenuActivity1.class);
                 break;
             case 1:
-                putIntent = new Intent(top_activity.this, MainActivity.class);
+                putIntent = new Intent(top_activity.this, MenuActivity2.class);
                 break;
             case 2:
-                putIntent = new Intent(top_activity.this, MainActivity.class);
+                putIntent = new Intent(top_activity.this, MenuActivity1.class);
                 break;
             case 3:
-                putIntent = new Intent(top_activity.this, MainActivity.class);
+                putIntent = new Intent(top_activity.this, MenuActivity1.class);
                 break;
             default:
+                putIntent = new Intent(top_activity.this, MenuActivity1.class);
                 break;
         }
         putIntent.putExtra("infoList", (Serializable) priorityDS.getAllInfos());
-        priorityDS.close();
         classifyDS.close();
+        priorityDS.close();
         startActivity(putIntent);
         super.onResume();
     }

@@ -8,7 +8,7 @@
     android:columnWidth="50dp"
     android:stretchMode="columnWidth"
     android:layout_gravity="start"
-    tools:context="com.example.perfectmenu.MainActivity"
+    tools:context=".MenuActivity1"
     android:columnCount="6"
     android:rowCount="9"
     xmlns:android="http://schemas.android.com/apk/res/android"

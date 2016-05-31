@@ -10,9 +10,8 @@
         android:theme="@style/Theme.AppCompat.Light"
         >
 
-        <activity android:name=".MainActivity">
-
-        </activity>
+        <activity android:name=".MenuActivity1"/>
+        <activity android:name=".MenuActivity2"/>
         <!-- Named child activity as ChildActivity -->
         <activity android:name=".AppPrioritySettings"/>
         <activity android:name=".ClassifyRecommendation"/>

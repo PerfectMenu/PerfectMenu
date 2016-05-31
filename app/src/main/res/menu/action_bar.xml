@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/menubar"
-    tools:context=".MainActivity"
+    tools:context=".MenuActivity1"
     app:showAsAction="always">
     <item android:title="우선 순위 설정"
         android:id="@+id/item1"/>
