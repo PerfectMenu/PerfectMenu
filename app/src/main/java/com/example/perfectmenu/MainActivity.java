@@ -30,6 +30,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.lang.ref.WeakReference;
 import java.text.Collator;
 import java.util.ArrayList;
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     GestureDetector gestureDetector;
     List<ResolveInfo> intentList;
     List<AppInfo> infoList = null;
+    List<Info> priorityInfo;
     int N = 17;
 
     //private AppPrioritySettings priorityDB;
@@ -144,8 +146,9 @@ public class MainActivity extends AppCompatActivity {
         String text = null;
         switch (item.getItemId()) {
             case R.id.item1:
-                Intent intent1 = new Intent(getApplicationContext(), AppPrioritySettings.class);
-                startActivity(intent1);
+                Intent intent = new Intent(getApplicationContext(), AppPrioritySettings.class);
+                intent.putExtra("infoList", (Serializable) priorityInfo);
+                startActivity(intent);
                 break;
             case R.id.item2:
                 Intent intent2 = new Intent(getApplicationContext(), ClassifyRecommendation.class);
@@ -157,7 +160,6 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return false;
         }
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
         return true;
     }
 
@@ -172,13 +174,19 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_MAIN, null);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
 
+        Intent getIntent = getIntent();
+        priorityInfo = (List<Info>) getIntent.getSerializableExtra("infoList");
 
         intentList = getPackageManager().queryIntentActivities(intent, 0);
         //List<Info> pl = AppPrioritySettings.getPriorityDB();
         infoList=new ArrayList<AppInfo>();
-        for (int i=0;i<intentList.size();i++){
+        for (ResolveInfo resolveInfo : intentList){
             //infoList.add(new AppInfo(intentList.get(i),intentList.get(i).loadLabel(myPackageManager).toString(),pl.get(i).getPriority()));
-            infoList.add(new AppInfo(intentList.get(i),intentList.get(i).loadLabel(myPackageManager).toString(),0));
+            int pri = 0;
+            for (Info info : priorityInfo){
+                if (info.getName().equals(resolveInfo.loadLabel(myPackageManager))) pri=info.getPriority();
+            }
+            infoList.add(new AppInfo(resolveInfo,resolveInfo.loadLabel(myPackageManager).toString(),pri));
         }
         Collections.sort(infoList, AppInfo.COMPARATOR);
         intentList = new ArrayList<ResolveInfo>();
@@ -310,9 +318,9 @@ public class MainActivity extends AppCompatActivity {
             } else if (velocityX < 0) {
                 temp += N;
             }
-            if (temp >= intentList.size() - 1) temp -= N; // 만약 환형 page 형식이라면 temp=0
+            if (temp >= intentList.size()) temp -= N; // 만약 환형 page 형식이라면 temp=0
             if (temp <= 0) temp = 0; // 만약 환형 page 형식이라면 temp=(int)((intentList.size() - 1)/N) * N
-            intentListPart.addAll(intentList.subList(temp, min(temp + N, intentList.size() - 1)));
+            intentListPart.addAll(intentList.subList(temp, min(temp + N, intentList.size())));
             /*------------------------------------------------------------------------------------------------*/
             if (intentListPart.size()>=1) gridview1.setAdapter(new MyBaseAdapter(act, intentListPart.subList(0, 1), 1, 1));
             else gridview1.setAdapter(new MyBaseAdapter(act, new ArrayList<ResolveInfo>(), 1, 1));

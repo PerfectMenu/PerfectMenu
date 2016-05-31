@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 /**
  * Created by dkflf on 2016-05-30.
  */
-public class MySQLiteHelper extends SQLiteOpenHelper{
+public class PrioritySQLiteHelper extends SQLiteOpenHelper{
     public static final String TABLE_INFOS = "infos";
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_NAME = "name";
@@ -21,7 +21,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
             + " integer primary key autoincrement, " + COLUMN_NAME
             + " text not null, " + COLUMN_PRIORITY + " text not null);";
 
-    public MySQLiteHelper(Context context){
+    public PrioritySQLiteHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 

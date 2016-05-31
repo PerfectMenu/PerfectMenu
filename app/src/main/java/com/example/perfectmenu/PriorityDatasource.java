@@ -14,11 +14,11 @@ import java.util.List;
  */
 public class PriorityDatasource {
     private SQLiteDatabase database;
-    private MySQLiteHelper dbHelper;
-    private String[] allColumns = {MySQLiteHelper.COLUMN_ID, MySQLiteHelper.COLUMN_NAME, MySQLiteHelper.COLUMN_PRIORITY};
+    private PrioritySQLiteHelper dbHelper;
+    private String[] allColumns = {PrioritySQLiteHelper.COLUMN_ID, PrioritySQLiteHelper.COLUMN_NAME, PrioritySQLiteHelper.COLUMN_PRIORITY};
 
     public PriorityDatasource(Context context){
-        dbHelper = new MySQLiteHelper(context);
+        dbHelper = new PrioritySQLiteHelper(context);
     }
 
     public void open() throws SQLException{
@@ -33,11 +33,11 @@ public class PriorityDatasource {
         Cursor cursor = null;
         try{
             ContentValues values = new ContentValues();
-            values.put(MySQLiteHelper.COLUMN_NAME,name);
-            values.put(MySQLiteHelper.COLUMN_PRIORITY,priority);
-            long insertId = database.insert(MySQLiteHelper.TABLE_INFOS, null, values);
+            values.put(PrioritySQLiteHelper.COLUMN_NAME,name);
+            values.put(PrioritySQLiteHelper.COLUMN_PRIORITY,priority);
+            long insertId = database.insert(PrioritySQLiteHelper.TABLE_INFOS, null, values);
             //지금 막 insert한 것을 다시 조회해 확인
-            cursor = database.query(MySQLiteHelper.TABLE_INFOS, allColumns, MySQLiteHelper.COLUMN_ID + " = " + insertId, null, null, null, null);
+            cursor = database.query(PrioritySQLiteHelper.TABLE_INFOS, allColumns, PrioritySQLiteHelper.COLUMN_ID + " = " + insertId, null, null, null, null);
             cursor.moveToFirst();
             return cursorToInfo(cursor);
         }finally{
@@ -47,15 +47,15 @@ public class PriorityDatasource {
 
     public void deleteInfo(Info info){
         long id = info.getId();
-        database.delete(MySQLiteHelper.TABLE_INFOS, MySQLiteHelper.COLUMN_ID + " = " + id, null);
+        database.delete(PrioritySQLiteHelper.TABLE_INFOS, PrioritySQLiteHelper.COLUMN_ID + " = " + id, null);
     }
 
     public void deleteById(long id){
-        database.delete(MySQLiteHelper.TABLE_INFOS, MySQLiteHelper.COLUMN_ID + " = " + id, null);
+        database.delete(PrioritySQLiteHelper.TABLE_INFOS, PrioritySQLiteHelper.COLUMN_ID + " = " + id, null);
     }
 
     public int deleteAllInfos(){
-        return database.delete(MySQLiteHelper.TABLE_INFOS, null, null);
+        return database.delete(PrioritySQLiteHelper.TABLE_INFOS, null, null);
     }
 
 
@@ -63,7 +63,7 @@ public class PriorityDatasource {
         List<Info> infos = new ArrayList<Info>();
         Cursor cursor = null;
         try{
-            cursor = database.query(MySQLiteHelper.TABLE_INFOS, allColumns, null, null, null, null, null);
+            cursor = database.query(PrioritySQLiteHelper.TABLE_INFOS, allColumns, null, null, null, null, null);
             cursor.moveToFirst();
             while(!cursor.isAfterLast()){
                 Info info = cursorToInfo(cursor);
@@ -87,9 +87,9 @@ public class PriorityDatasource {
     }
     private Info cursorToInfo(Cursor cursor){
         Info info = new Info();
-        int idIndex = cursor.getColumnIndex(MySQLiteHelper.COLUMN_ID);
-        int nameIndex = cursor.getColumnIndex(MySQLiteHelper.COLUMN_NAME);
-        int priorityIndex = cursor.getColumnIndex(MySQLiteHelper.COLUMN_PRIORITY);
+        int idIndex = cursor.getColumnIndex(PrioritySQLiteHelper.COLUMN_ID);
+        int nameIndex = cursor.getColumnIndex(PrioritySQLiteHelper.COLUMN_NAME);
+        int priorityIndex = cursor.getColumnIndex(PrioritySQLiteHelper.COLUMN_PRIORITY);
         info.setId(cursor.getLong(idIndex));
         info.setName(cursor.getString(nameIndex));
         info.setPriority(cursor.getInt(priorityIndex));

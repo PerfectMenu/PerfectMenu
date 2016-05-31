@@ -1,12 +1,22 @@
 package com.example.perfectmenu;
 
+import java.io.Serializable;
+
 /**
  * Created by dkflf on 2016-05-30.
  */
-public class Info {
+public class Info implements Serializable{
     private long id;
     private String name;
     private int priority;
+
+    public Info(){}
+
+    public Info(long id, String name, int priority){
+        this.id=id;
+        this.name=name;
+        this.priority=priority;
+    }
 
     public long getId(){
         return id;

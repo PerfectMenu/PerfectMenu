@@ -22,6 +22,7 @@ import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,8 +30,6 @@ import java.util.List;
  * Created by 유정 on 2016-05-28.
  */
 public class AppPrioritySettings extends AppCompatActivity{
-    final public static String TAG = "Database";
-    private PriorityDatasource datasource;
     //private EditText mInfoET;
 
     PackageManager myPackageManager;
@@ -41,7 +40,6 @@ public class AppPrioritySettings extends AppCompatActivity{
     NumberPicker numberPicker = null;
 
     public class SettingBaseAdapter extends BaseAdapter {
-        int pos;
         ViewGroup saveParent;
         SettingBaseAdapter(List<ResolveInfo> I, List<Integer> p) {
             myInfo = I;
@@ -85,15 +83,10 @@ public class AppPrioritySettings extends AppCompatActivity{
                 @Override
                 public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                     priorityList.set((Integer) picker.getTag(), newVal);
-                    //System.out.println("picker's value is " + picker.getValue());
                 }
             });
             return convertView;
         }
-    }
-
-    public PriorityDatasource getPriorityDB(){
-        return datasource;
     }
 
     @Override
@@ -103,39 +96,13 @@ public class AppPrioritySettings extends AppCompatActivity{
         myPackageManager = getPackageManager();
         Intent intent = new Intent(Intent.ACTION_MAIN,null);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
-        List<ResolveInfo> intentList = getPackageManager().queryIntentActivities(intent, 0);
-        ListView listView = (ListView) findViewById(R.id.listView);
-        assert listView != null;
-        //listView.setOnItemClickListener(myOnItemClickListener);
+        Intent intent1 = getIntent();
 
-        List<Integer> pL = new ArrayList<Integer>();
-        datasource = new PriorityDatasource(this);
-        datasource.open();
-        List<Info> values = datasource.getAllInfos();
-        System.out.println("Create");
-        if (values.size()!=intentList.size()){
-            System.out.println("Formatting database");
-            datasource.deleteAllInfos();
-            for (ResolveInfo info : intentList){
-                datasource.createInfo(info.loadLabel(myPackageManager).toString(), 0);
-            }
-        }
-    }
-    @Override
-    protected void onResume(){
-        System.out.println("onResume");
-        datasource.open();
-
-        Intent intent = new Intent(Intent.ACTION_MAIN,null);
-        intent.addCategory(Intent.CATEGORY_LAUNCHER);
         List<ResolveInfo> intentList = getPackageManager().queryIntentActivities(intent, 0);
         List<Integer> pL = new ArrayList<Integer>();
-        List<Info> values = datasource.getAllInfos();
+        List<Info> values = (List<Info>)intent1.getSerializableExtra("infoList");
         ListView listView = (ListView) findViewById(R.id.listView);
         assert listView != null;
-
-        System.out.println("Load database @ Resume");
-        values = datasource.getAllInfos();
         for (Info info : values) pL.add(0);
         for (Info info : values){
             int t=-1;
@@ -149,43 +116,32 @@ public class AppPrioritySettings extends AppCompatActivity{
         }
 
         listView.setAdapter(new SettingBaseAdapter(intentList, pL));
-
+    }
+    @Override
+    protected void onResume(){
         super.onResume();
     }
 
     @Override
     protected void onPause(){
-        System.out.println("onPause");
-        datasource.close();
         super.onPause();
     }
 
     private void save() {
-        System.out.println("Save");
-        ListView listView = (ListView) findViewById(R.id.listView);
-        assert listView != null;
-        datasource.deleteAllInfos();
+        List<Info> infoList = new ArrayList<Info>();
         int i=0;
         for (ResolveInfo info : myInfo){
-            datasource.createInfo(info.loadLabel(myPackageManager).toString(), priorityList.get(i));
+            infoList.add(new Info(i, info.loadLabel(myPackageManager).toString(), priorityList.get(i)));
             i++;
         }
+        Intent intent = new Intent(AppPrioritySettings.this, top_activity.class);
+        intent.putExtra("infoList", (Serializable) infoList);
+        startActivity(intent);
     }
-
-    /*@Override
-    protected void onListItemClick(ListView l, View v, int position, long id){
-        super.onListItemClick(l, v, position, id);
-        ArrayAdapter<Info> adapter = (ArrayAdapter<Info>) getListAdapter();
-        Info info = adapter.getItem(position);
-        datasource.deleteInfo(info);
-        adapter.remove(info);
-        adapter.notifyDataSetChanged();
-    }*/
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event){
-        System.out.println("onKeyDown");
         save();
-        finish();
+        //finish();
         return false;
     }
 }

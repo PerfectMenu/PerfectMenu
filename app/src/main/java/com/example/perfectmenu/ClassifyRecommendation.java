@@ -1,5 +1,6 @@
 package com.example.perfectmenu;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -10,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+
+import java.io.Serializable;
 
 /**
  * Created by 유정 on 2016-05-28.
@@ -59,6 +62,9 @@ public class ClassifyRecommendation extends AppCompatActivity {
                 break;
             case R.id.select:
                 //save selected layout type
+                Intent intent = new Intent(ClassifyRecommendation.this, top_activity.class);
+                intent.putExtra("classifyRecommendation", myViewPager.getCurrentItem());
+                startActivity(intent);
                 finish();
         }
     }
@@ -72,15 +78,12 @@ public class ClassifyRecommendation extends AppCompatActivity {
         MyPagerAdapter adapter = new MyPagerAdapter(getLayoutInflater());
         myViewPager.setAdapter(adapter);
     }
-    /*@Override
-    protected void onDestroy(){
-        RecycleUtils.recursiveRecycle(myRecycleList);
-        System.gc();
-        super.onDestroy();
-    }*/
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event){
+        Intent intent = new Intent(ClassifyRecommendation.this, top_activity.class);
+        intent.putExtra("classifyRecommendation", -1); //
+        startActivity(intent);
         finish();
         return false;
     }

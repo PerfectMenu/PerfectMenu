@@ -32,7 +32,7 @@ public class AppInfo {
         private final Collator sCollator = Collator.getInstance();
         @Override
         public int compare(AppInfo lhs, AppInfo rhs) {
-            if (lhs.value != rhs.value) return lhs.value-rhs.value;
+            if (lhs.value != rhs.value) return rhs.value-lhs.value;
             return lhs.appName.compareTo(rhs.appName);
         }
     };
