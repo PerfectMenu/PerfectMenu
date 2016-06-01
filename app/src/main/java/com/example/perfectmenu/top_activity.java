@@ -67,7 +67,6 @@ public class top_activity extends AppCompatActivity{
         }
 
         int currentClassify = classifyDS.getAllInfos();
-        System.out.println("Current Classify is " + currentClassify);
         Intent putIntent = null;
         switch (currentClassify){
             case 0:

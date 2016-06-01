@@ -62,8 +62,8 @@ public class ClassifyDatasource {
         Cursor cursor = null;
         try{
             cursor = database.query(ClassifySQLiteHelper.TABLE_CLASSIFY, allColumns, null, null, null, null, null);
-            cursor.moveToLast();
-            return cursorToInteger(cursor);
+            if (cursor.moveToFirst()) return cursorToInteger(cursor);
+            return 0;
         }finally{
             closeCursor(cursor);
         }
@@ -82,3 +82,4 @@ public class ClassifyDatasource {
         return cursor.getInt(cursor.getColumnIndex(ClassifySQLiteHelper.COLUMN_CLASSIFY));
     }
 }
+
