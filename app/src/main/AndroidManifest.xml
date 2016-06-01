@@ -12,6 +12,7 @@
 
         <activity android:name=".MenuActivity1"/>
         <activity android:name=".MenuActivity2"/>
+        <activity android:name=".DefaultMenuActivity"/>
         <!-- Named child activity as ChildActivity -->
         <activity android:name=".AppPrioritySettings"/>
         <activity android:name=".ClassifyRecommendation"/>
