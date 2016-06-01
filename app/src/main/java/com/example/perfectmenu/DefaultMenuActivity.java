@@ -164,7 +164,7 @@ public class DefaultMenuActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu1);
+        setContentView(R.layout.activity_default_menu);
         myPackageManager = getPackageManager();
         gestureDetector = new GestureDetector(this, myOnGestureListener);
         Intent intent = new Intent(Intent.ACTION_MAIN, null);
