@@ -211,6 +211,12 @@ public class MenuActivity1 extends AppCompatActivity {
             if (i<=intentList.size()) gridview[i].setAdapter(new MyBaseAdapter(act, intentList.subList(i, i+1), size[i], size[i]));
             else gridview[i].setAdapter(new MyBaseAdapter(act, new ArrayList<ResolveInfo>(), size[i], size[i]));
             gridview[i].setOnItemClickListener(myOnItemClickListener);
+            gridview[i].setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    return gestureDetector.onTouchEvent(event);
+                }
+            });
         }
     }
     /*@Override

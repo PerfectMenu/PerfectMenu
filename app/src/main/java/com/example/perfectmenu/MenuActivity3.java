@@ -33,9 +33,9 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Created by mooth on 2016-06-01.
+ * Created by mooth on 2016-06-02.
  */
-public class DefaultMenuActivity extends AppCompatActivity {
+public class MenuActivity3 extends AppCompatActivity {
     PackageManager myPackageManager;
     Activity act = this;
     int temp = 0, t = 0;
@@ -44,12 +44,16 @@ public class DefaultMenuActivity extends AppCompatActivity {
     List<ResolveInfo> intentList;
     List<AppInfo> infoList = null;
     List<Info> priorityInfo;
-    int N = 20;
-    GridView gridview1, gridview2, gridview3, gridview4, gridview5, gridview6, gridview7,
-            gridview8, gridview9, gridview10, gridview11, gridview12, gridview13, gridview14, gridview15, gridview16, gridview17, gridview18, gridview19, gridview20;
+    int N = 12;
 
-    GridView[] gridview = new GridView[]{gridview11,gridview15,gridview8,gridview10,gridview14,gridview7,gridview6,gridview12,gridview16,gridview20,gridview19,gridview18,gridview17,gridview13,gridview9,gridview4,gridview5,gridview3,gridview2,gridview1};
-    int[] size = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
+    //private AppPrioritySettings priorityDB;
+
+    //List<WeakReference<View>> myRecycleList = new ArrayList<>();
+    GridView gridview1, gridview2, gridview3, gridview4, gridview5, gridview6, gridview7,
+            gridview8, gridview9, gridview10, gridview11, gridview12;
+
+    GridView[] gridview = new GridView[]{gridview5,gridview8,gridview3,gridview4,gridview7,gridview2,gridview1,gridview6,gridview9,gridview10,gridview11,gridview12};
+    int[] size = {1,1,1,1,1,1,1,1,1,1,1,1};
 
     public class MyBaseAdapter extends BaseAdapter {
         private Context myContext;
@@ -160,7 +164,7 @@ public class DefaultMenuActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_default_menu);
+        setContentView(R.layout.activity_menu3);
         myPackageManager = getPackageManager();
         gestureDetector = new GestureDetector(this, myOnGestureListener);
         Intent intent = new Intent(Intent.ACTION_MAIN, null);
@@ -198,18 +202,10 @@ public class DefaultMenuActivity extends AppCompatActivity {
         gridview10 = (GridView) findViewById(R.id.gridview10); assert gridview10 != null;
         gridview11 = (GridView) findViewById(R.id.gridview11); assert gridview11 != null;
         gridview12 = (GridView) findViewById(R.id.gridview12); assert gridview12 != null;
-        gridview13 = (GridView) findViewById(R.id.gridview13); assert gridview13 != null;
-        gridview14 = (GridView) findViewById(R.id.gridview14); assert gridview14 != null;
-        gridview15 = (GridView) findViewById(R.id.gridview15); assert gridview15 != null;
-        gridview16 = (GridView) findViewById(R.id.gridview16); assert gridview16 != null;
-        gridview17 = (GridView) findViewById(R.id.gridview17); assert gridview17 != null;
-        gridview18 = (GridView) findViewById(R.id.gridview18); assert gridview18 != null;
-        gridview19 = (GridView) findViewById(R.id.gridview19); assert gridview19 != null;
-        gridview20 = (GridView) findViewById(R.id.gridview20); assert gridview20 != null;
 
-        GridView[] gridview = new GridView[]{gridview11,gridview15,gridview8,gridview10,gridview14,gridview7,gridview6,gridview12,gridview16,gridview20,gridview19,gridview18,gridview17,gridview13,gridview9,gridview4,gridview5,gridview3,gridview2,gridview1};
+        GridView[] gridview = new GridView[]{gridview5,gridview8,gridview3,gridview4,gridview7,gridview2,gridview1,gridview6,gridview9,gridview10,gridview11,gridview12};
         for (int i=0;i<N;i++){
-            if (i<intentList.size()) gridview[i].setAdapter(new MyBaseAdapter(act, intentList.subList(i, i+1), size[i], size[i]));
+            if (i<=intentList.size()) gridview[i].setAdapter(new MyBaseAdapter(act, intentList.subList(i, i+1), size[i], size[i]));
             else gridview[i].setAdapter(new MyBaseAdapter(act, new ArrayList<ResolveInfo>(), size[i], size[i]));
             gridview[i].setOnItemClickListener(myOnItemClickListener);
             gridview[i].setOnTouchListener(new View.OnTouchListener() {
@@ -262,7 +258,7 @@ public class DefaultMenuActivity extends AppCompatActivity {
             if (temp <= 0) temp = 0; // 만약 환형 page 형식이라면 temp=(int)((intentList.size() - 1)/N) * N
             intentListPart.addAll(intentList.subList(temp, min(temp + N, intentList.size())));
             /*------------------------------------------------------------------------------------------------*/
-            GridView[] gridview = new GridView[]{gridview11,gridview15,gridview8,gridview10,gridview14,gridview7,gridview6,gridview12,gridview16,gridview20,gridview19,gridview18,gridview17,gridview13,gridview9,gridview4,gridview5,gridview3,gridview2,gridview1};
+            GridView[] gridview = new GridView[]{gridview5,gridview8,gridview3,gridview4,gridview7,gridview2,gridview1,gridview6,gridview9,gridview10,gridview11,gridview12};
             for (int i=0;i<N;i++){
                 if (i<intentListPart.size()) gridview[i].setAdapter(new MyBaseAdapter(act, intentListPart.subList(i, i+1), size[i], size[i]));
                 else gridview[i].setAdapter(new MyBaseAdapter(act, new ArrayList<ResolveInfo>(), size[i], size[i]));

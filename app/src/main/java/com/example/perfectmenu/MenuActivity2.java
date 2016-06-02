@@ -210,6 +210,12 @@ public class MenuActivity2 extends AppCompatActivity {
             if (i<=intentList.size()) gridview[i].setAdapter(new MyBaseAdapter(act, intentList.subList(i, i+1), size[i], size[i]));
             else gridview[i].setAdapter(new MyBaseAdapter(act, new ArrayList<ResolveInfo>(), size[i], size[i]));
             gridview[i].setOnItemClickListener(myOnItemClickListener);
+            gridview[i].setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    return gestureDetector.onTouchEvent(event);
+                }
+            });
         }
     }
     /*@Override
@@ -258,6 +264,12 @@ public class MenuActivity2 extends AppCompatActivity {
             for (int i=0;i<N;i++){
                 if (i<intentListPart.size()) gridview[i].setAdapter(new MyBaseAdapter(act, intentListPart.subList(i, i+1), size[i], size[i]));
                 else gridview[i].setAdapter(new MyBaseAdapter(act, new ArrayList<ResolveInfo>(), size[i], size[i]));
+                gridview[i].setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        return gestureDetector.onTouchEvent(event);
+                    }
+                });
             }
 
             return gestureDetector.onTouchEvent(e1);
