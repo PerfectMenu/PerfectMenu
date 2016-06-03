@@ -79,7 +79,7 @@ public class AppPrioritySettings extends AppCompatActivity{
             NumberPicker numberPicker = (NumberPicker) convertView.findViewById(R.id.app_priority);
             numberPicker.setTag(position);
             numberPicker.setMinValue(0);
-            numberPicker.setMaxValue(5);
+            numberPicker.setMaxValue(10);
             numberPicker.setValue(priorityList.get(position));
             numberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
             numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
