@@ -15,10 +15,12 @@
     <color name="colorIndigoBlue">#8088AAFF</color>
     <color name="colorLightGreen">#8077EE88</color>
     <color name="colorLightLeaf">#8088DD77</color>
-    <color name="colorDarkYellow">#80AABB66</color>
+    <color name="colorDarkYellow">#80AAAA00</color>
+    <color name="colorYellow">#60FFFF00</color>
     <color name="colorToOrange">#80CCBB00</color>
     <color name="colorDarkOrange">#80DDAA00</color>
     <color name="colorLightOrange">#80FFBB00</color>
+
 
 
 </resources>
