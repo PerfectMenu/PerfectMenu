@@ -7,7 +7,9 @@
     app:showAsAction="always">
     <item android:title="우선 순위 설정"
         android:id="@+id/item1"/>
-    <item android:title="정리 추천"
+    <item android:title="레이아웃 설정"
         android:id="@+id/item2"
         />
+    <item android:title="도움말"
+        android:id="@+id/item3"/>
 </menu>

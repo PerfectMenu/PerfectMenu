@@ -148,6 +148,10 @@ public class MenuActivity2 extends AppCompatActivity {
                 Intent intent2 = new Intent(getApplicationContext(), ClassifyRecommendation.class);
                 startActivity(intent2);
                 break;
+            case R.id.item3:
+                Intent intent3 = new Intent(getApplicationContext(), ShowHowTo.class);
+                startActivity(intent3);
+                break;
             default:
                 return false;
         }

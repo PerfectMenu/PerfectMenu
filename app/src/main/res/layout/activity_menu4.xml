@@ -15,7 +15,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:rowOrderPreserved="false"
 
-    android:background="@color/colorViolet">
+    android:clickable="false">
 
     <GridView
         android:id="@+id/gridview1"
@@ -23,7 +23,7 @@
         android:layout_height="100dp"
         android:layout_column="1"
         android:layout_row="1"
-        android:background="@color/colorLightRedViolet">
+        tools:listitem="@layout/item">
         <!--
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"-->
@@ -35,7 +35,7 @@
         android:layout_height="100dp"
         android:layout_column="2"
         android:layout_row="1"
-        android:background="@color/colorRedViolet">
+        tools:listitem="@layout/item">
 
     </GridView>
 
@@ -45,8 +45,9 @@
         android:layout_row="1"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:background="@color/colorLightRedViolet"
-        android:layout_marginRight="8dp"/>
+        android:layout_marginRight="8dp"
+        tools:listitem="@layout/item"
+        android:background="@color/colorLightIndigo" />
 
     <GridView
         android:id="@+id/gridview4"
@@ -54,14 +55,16 @@
         android:layout_row="2"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:background="@color/colorRedViolet"/>
+        tools:listitem="@layout/item"/>
     <GridView
         android:id="@+id/gridview5"
         android:layout_column="2"
         android:layout_row="2"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:background="@color/colorLightRedViolet"/>
+        android:background="@color/colorPrimary"
+        tools:listitem="@layout/item"
+        />
 
     <GridView
         android:id="@+id/gridview6"
@@ -69,8 +72,8 @@
         android:layout_row="2"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:background="@color/colorLightBlueViolet"
-        android:layout_marginRight="8dp"/>
+        android:layout_marginRight="8dp"
+        tools:listitem="@layout/item" />
 
     <GridView
         android:id="@+id/gridview7"
@@ -78,7 +81,7 @@
         android:layout_row="3"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:background="@color/colorLightRedViolet"/>
+        tools:listitem="@layout/item" />
 
     <GridView
         android:id="@+id/gridview8"
@@ -86,7 +89,8 @@
         android:layout_row="3"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:background="@color/colorLightBlueViolet"/>
+        tools:listitem="@layout/item"
+        android:background="@color/colorLightBlue"/>
 
     <GridView
         android:id="@+id/gridview9"
@@ -94,7 +98,7 @@
         android:layout_row="3"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:background="@color/colorBlueViolet"
+        tools:listitem="@layout/item"
         android:layout_marginRight="8dp"/>
 
     <GridView
@@ -103,9 +107,8 @@
         android:layout_row="4"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:background="@color/colorLightBlueViolet"
         android:layout_marginBottom="48dp"
-        />
+        tools:listitem="@layout/item" />
 
     <GridView
         android:id="@+id/gridview11"
@@ -113,8 +116,8 @@
         android:layout_row="4"
         android:layout_width="100dp"
         android:layout_marginBottom="48dp"
-        android:layout_height="100dp"
-        android:background="@color/colorBlueViolet"/>
+        tools:listitem="@layout/item"
+        android:layout_height="100dp" />
 
     <GridView
         android:id="@+id/gridview12"
@@ -122,7 +125,7 @@
         android:layout_row="4"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        tools:listitem="@layout/item"
         android:layout_marginBottom="48dp"
-        android:layout_marginRight="8dp"
-        android:background="@color/colorViolet"/>
+        android:layout_marginRight="8dp" />
 </GridLayout>

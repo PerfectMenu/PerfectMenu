@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.Serializable;
 
@@ -26,7 +27,7 @@ public class ClassifyRecommendation extends AppCompatActivity {
         }
         @Override
         public int getCount() {
-            return 4;
+            return 5;
         }
         @Override
         public Object instantiateItem(ViewGroup container, int position){
@@ -34,7 +35,7 @@ public class ClassifyRecommendation extends AppCompatActivity {
             view = inflater.inflate(R.layout.select_layout, null);
 
             ImageView img = (ImageView)view.findViewById(R.id.layout_image);
-            img.setImageResource(R.mipmap.screen1);// + position);
+            img.setImageResource(R.drawable.layout0 + position);// + position);
             container.addView(view);
             return view;
         }
@@ -58,11 +59,15 @@ public class ClassifyRecommendation extends AppCompatActivity {
                 break;
             case R.id.to_right:
                 position= myViewPager.getCurrentItem();
-                if(position != 3) myViewPager.setCurrentItem(position + 1, true);
+                if(position != 4) myViewPager.setCurrentItem(position + 1, true);
                 break;
             case R.id.select:
                 //save selected layout type
                 Intent intent = new Intent(ClassifyRecommendation.this, top_activity.class);
+                String text = "Change Settings...";
+                Toast toast = Toast.makeText(this, text,
+                        Toast.LENGTH_SHORT);
+                toast.show();
                 intent.putExtra("classifyRecommendation", myViewPager.getCurrentItem());
                 startActivity(intent);
                 finish();
