@@ -146,9 +146,6 @@ public class DefaultMenuActivity extends AppCompatActivity {
                 Intent intent2 = new Intent(getApplicationContext(), ClassifyRecommendation.class);
                 startActivity(intent2);
                 break;
-            case R.id.item3:
-                text = "C";
-                break;
             default:
                 return false;
         }

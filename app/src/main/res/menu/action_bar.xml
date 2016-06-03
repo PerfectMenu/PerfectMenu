@@ -10,7 +10,4 @@
     <item android:title="정리 추천"
         android:id="@+id/item2"
         />
-    <item android:title="편집"
-        android:id="@+id/item3"
-        />
 </menu>
