@@ -41,6 +41,7 @@
         android:layout_row="0"
         android:layout_width="90dp"
         android:layout_height="90dp"
+        android:layout_marginTop="10dp"
         tools:listitem="@layout/item"/>
 
     <GridView
@@ -49,6 +50,7 @@
         android:layout_row="0"
         android:layout_width="90dp"
         android:layout_height="90dp"
+        android:layout_marginTop="10dp"
         tools:listitem="@layout/item"/>
     <GridView
         android:id="@+id/gridview5"

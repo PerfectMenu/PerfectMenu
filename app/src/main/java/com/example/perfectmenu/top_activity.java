@@ -71,7 +71,7 @@ public class top_activity extends AppCompatActivity{
         switch (currentClassify){
             case 0:
                 //putIntent = new Intent(top_activity.this, DefaultMenuActivity.class);
-                putIntent = new Intent(top_activity.this, MenuActivity4.class);
+                putIntent = new Intent(top_activity.this, DefaultMenuActivity.class);
                 break;
             case 1:
                 putIntent = new Intent(top_activity.this, MenuActivity1.class);
@@ -82,8 +82,11 @@ public class top_activity extends AppCompatActivity{
             case 3:
                 putIntent = new Intent(top_activity.this, MenuActivity3.class);
                 break;
+            case 4:
+                putIntent = new Intent(top_activity.this, MenuActivity4.class);
+                break;
             default:
-                putIntent = new Intent(top_activity.this, MenuActivity1.class);
+                putIntent = new Intent(top_activity.this, DefaultMenuActivity.class);
                 break;
         }
         putIntent.putExtra("infoList", (Serializable) priorityDS.getAllInfos());

@@ -122,8 +122,6 @@ public class MenuActivity1 extends AppCompatActivity {
                             info.activityInfo.packageName,
                             info.activityInfo.name));
                     act.startActivity(intent);
-                    String msg = info.activityInfo.packageName+", "+info.activityInfo.name;
-                    Toast.makeText(act,msg,Toast.LENGTH_LONG).show();
                 }
             });
 
