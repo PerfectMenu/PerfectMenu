@@ -70,7 +70,8 @@ public class top_activity extends AppCompatActivity{
         Intent putIntent = null;
         switch (currentClassify){
             case 0:
-                putIntent = new Intent(top_activity.this, DefaultMenuActivity.class);
+                //putIntent = new Intent(top_activity.this, DefaultMenuActivity.class);
+                putIntent = new Intent(top_activity.this, MenuActivity4.class);
                 break;
             case 1:
                 putIntent = new Intent(top_activity.this, MenuActivity1.class);

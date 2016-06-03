@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout android:id="@+id/gridlayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:numColumns="4"
+    android:horizontalSpacing="10dp"
+    android:verticalSpacing="10dp"
+    android:columnWidth="50dp"
+    android:stretchMode="columnWidth"
+    android:layout_gravity="start"
+    tools:context=".MenuActivity1"
+    android:columnCount="4"
+    android:rowCount="5"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:rowOrderPreserved="false"
+
+    android:background="@color/colorViolet">
+
+    <GridView
+        android:id="@+id/gridview1"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_column="1"
+        android:layout_row="1"
+        android:background="@color/colorLightRedViolet">
+        <!--
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"-->
+
+    </GridView>
+    <GridView
+        android:id="@+id/gridview2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_column="2"
+        android:layout_row="1"
+        android:background="@color/colorRedViolet">
+
+    </GridView>
+
+    <GridView
+        android:id="@+id/gridview3"
+        android:layout_column="3"
+        android:layout_row="1"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@color/colorLightRedViolet"
+        android:layout_marginRight="8dp"/>
+
+    <GridView
+        android:id="@+id/gridview4"
+        android:layout_column="1"
+        android:layout_row="2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@color/colorRedViolet"/>
+    <GridView
+        android:id="@+id/gridview5"
+        android:layout_column="2"
+        android:layout_row="2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@color/colorLightRedViolet"/>
+
+    <GridView
+        android:id="@+id/gridview6"
+        android:layout_column="3"
+        android:layout_row="2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@color/colorLightBlueViolet"
+        android:layout_marginRight="8dp"/>
+
+    <GridView
+        android:id="@+id/gridview7"
+        android:layout_column="1"
+        android:layout_row="3"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@color/colorLightRedViolet"/>
+
+    <GridView
+        android:id="@+id/gridview8"
+        android:layout_column="2"
+        android:layout_row="3"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@color/colorLightBlueViolet"/>
+
+    <GridView
+        android:id="@+id/gridview9"
+        android:layout_column="3"
+        android:layout_row="3"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@color/colorBlueViolet"
+        android:layout_marginRight="8dp"/>
+
+    <GridView
+        android:id="@+id/gridview10"
+        android:layout_column="1"
+        android:layout_row="4"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@color/colorLightBlueViolet"
+        android:layout_marginBottom="48dp"
+        />
+
+    <GridView
+        android:id="@+id/gridview11"
+        android:layout_column="2"
+        android:layout_row="4"
+        android:layout_width="100dp"
+        android:layout_marginBottom="48dp"
+        android:layout_height="100dp"
+        android:background="@color/colorBlueViolet"/>
+
+    <GridView
+        android:id="@+id/gridview12"
+        android:layout_column="3"
+        android:layout_row="4"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="48dp"
+        android:layout_marginRight="8dp"
+        android:background="@color/colorViolet"/>
+</GridLayout>
