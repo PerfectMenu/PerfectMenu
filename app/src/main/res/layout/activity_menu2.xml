@@ -12,8 +12,7 @@
     android:columnCount="6"
     android:rowCount="9"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="#30FFFF00">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <GridView
         android:id="@+id/gridview1"
