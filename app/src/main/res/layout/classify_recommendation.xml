@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ClassifyRecommendation"
+    android:weightSum="1">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp"
+    >
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/to_left"
+            android:layout_marginRight="4dp"
+            android:src="@drawable/arrow_to_left"
+            android:onClick="myOnClick"/>
+
+        <android.support.v4.view.ViewPager
+            android:layout_width="232dp"
+            android:layout_height="358dp"
+            android:id="@+id/recommend_pager"
+            android:layout_gravity="center" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/to_right"
+            android:src="@drawable/arrow_to_right"
+            android:onClick="myOnClick"
+            android:layout_marginLeft="4dp"/>
+    </LinearLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/select"
+        android:text="선택"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_gravity="center_horizontal"
+        android:onClick="myOnClick" />
+</LinearLayout>
