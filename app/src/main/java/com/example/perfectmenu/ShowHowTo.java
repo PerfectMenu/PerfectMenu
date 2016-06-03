@@ -25,7 +25,7 @@ public class ShowHowTo extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 2;
+            return 3;
         }
 
         @Override
