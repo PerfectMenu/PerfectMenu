@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -99,7 +100,8 @@ public class AppPrioritySettings extends AppCompatActivity{
         Intent intent = new Intent(Intent.ACTION_MAIN,null);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
         Intent intent1 = getIntent();
-
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
         intentList = getPackageManager().queryIntentActivities(intent, 0);
         List<Integer> pL = new ArrayList<Integer>();
         List<Info> values = (List<Info>)intent1.getSerializableExtra("infoList");
@@ -146,5 +148,14 @@ public class AppPrioritySettings extends AppCompatActivity{
         save();
         //finish();
         return false;
+    }
+    @Override
+    public boolean onOptionsItemSelected(android.view.MenuItem item){
+        switch(item.getItemId()){
+            case android.R.id.home:
+                save();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
