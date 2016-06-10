@@ -69,7 +69,7 @@
         android:layout_rowSpan="2"
         tools:listitem="@layout/item"
         android:layout_columnSpan="2"
-        android:background="@color/colorSkyBlue" />
+        android:background="@color/colorRedViolet" />
 
     <GridView
         android:id="@+id/gridview7"
@@ -78,7 +78,7 @@
         android:layout_width="90dp"
         android:layout_height="90dp"
         tools:listitem="@layout/item"
-        android:background="@color/colorLightIndigo" />
+        android:background="@color/colorLightBlueViolet" />
 
     <GridView
         android:id="@+id/gridview8"
@@ -111,7 +111,7 @@
         android:layout_width="90dp"
         android:layout_height="90dp"
         tools:listitem="@layout/item"
-        android:background="@color/colorLightBlue" />
+        android:background="@color/colorLightRedViolet" />
 
     <GridView
         android:id="@+id/gridview12"
@@ -120,7 +120,7 @@
         android:layout_width="90dp"
         android:layout_height="90dp"
         tools:listitem="@layout/item"
-        android:background="@color/colorLightBlue" />
+        android:background="@color/colorLightRedViolet" />
 
     <GridView
         android:id="@+id/gridview13"
@@ -145,7 +145,7 @@
         android:layout_width="90dp"
         android:layout_height="90dp"
         tools:listitem="@layout/item"
-        android:background="@color/colorLightIndigo" />
+        android:background="@color/colorLightBlueViolet" />
 
     <GridView
         android:id="@+id/gridview16"
